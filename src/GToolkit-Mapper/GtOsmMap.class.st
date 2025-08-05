@@ -52,6 +52,11 @@ GtOsmMap >> bottomRightCoordinate [
 ]
 
 { #category : #accessing }
+GtOsmMap >> bottomRightCoordinate: aNumber [
+	bottomRightCoordinate := aNumber
+]
+
+{ #category : #accessing }
 GtOsmMap >> bottomRightTileNumber [
 
 	^ GtOpenStreetMapTiles new getTileNumberLat: bottomRightCoordinate y long: bottomRightCoordinate x zoom: zoom
@@ -112,6 +117,11 @@ GtOsmMap >> tileDimensions [
 { #category : #accessing }
 GtOsmMap >> topLeftCoordinate [
 	^ topLeftCoordinate
+]
+
+{ #category : #accessing }
+GtOsmMap >> topLeftCoordinate: aNumber [
+	topLeftCoordinate := aNumber
 ]
 
 { #category : #accessing }
