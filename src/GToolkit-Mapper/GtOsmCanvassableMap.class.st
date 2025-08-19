@@ -145,6 +145,11 @@ GtOsmCanvassableMap >> topLeftTileNumber [
 	^ GtOpenStreetMapTiles new getTileNumberLat: topLeftCoordinate y long: topLeftCoordinate x zoom: zoom
 ]
 
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> updateZoom: aNumber [
+	self zoom: aNumber.
+]
+
 { #category : #accessing }
 GtOsmCanvassableMap >> zoom [
 	^ zoom
