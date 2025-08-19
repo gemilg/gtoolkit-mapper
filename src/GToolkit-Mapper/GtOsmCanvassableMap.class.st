@@ -53,6 +53,30 @@ GtOsmCanvassableMap >> bottomRightTileNumber [
 	^ GtOpenStreetMapTiles new getTileNumberLat: bottomRightCoordinate y long: bottomRightCoordinate x zoom: zoom
 ]
 
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
+	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasMarginOffset canvasSize tilesSize additionalTilesOffset |
+
+	osmTiles := GtOpenStreetMapTiles new.
+	tileNumber := self topLeftTileNumber.
+	tileOffset := osmTiles
+			pixelPointAt: aPoint x @ aPoint y
+			tile: tileNumber
+			zoom: self zoom.
+	mx := (tileNumber x - self topLeftTileNumber x) * 256.
+	my := (tileNumber y - self topLeftTileNumber y) * 256.
+	additionalTilesOffset := mx@my.
+
+	canvasMarginOffset := 20@20.
+	canvasSize := (self parent parent measuredBounds extent x)@(self parent parent measuredBounds extent y).
+	tilesSize := (self measuredBounds extent x)@(self measuredBounds extent y).
+	mapOffset := (tilesSize / 2) - additionalTilesOffset - tileOffset.
+
+	resultTransformation := (canvasSize / 2) - (tilesSize / 2) - canvasMarginOffset + mapOffset.
+
+	self childrenTranslationFactor: resultTransformation
+]
+
 { #category : #accessing }
 GtOsmCanvassableMap >> gtSummaryFor: aView [
 	<gtView>
