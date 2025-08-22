@@ -4,37 +4,27 @@ Class {
 	#instVars : [
 		'topLeftCoordinate',
 		'bottomRightCoordinate',
-		'zoom'
+		'zoom',
+		'centerCoordinate',
+		'centerTileOffset',
+		'tilesContainer'
 	],
 	#category : #'GToolkit-Mapper-Osm'
 }
 
 { #category : #accessing }
 GtOsmCanvassableMap >> addChildren [
-	| tilesContainer tileDimensions topLeftNumber osm rowContainer |
-
-	tileDimensions := self tileDimensions.
-	topLeftNumber := self topLeftTileNumber.
-	osm := GtOpenStreetMapTiles new.
-	tilesContainer := BlElement new
-		size: (tileDimensions x * 256) @ (tileDimensions y * 256);
-		layout: BlGridLayout vertical.
-	1 to: tileDimensions y do: [ :y |
-		rowContainer := BlElement new
-			size: (tileDimensions x * 256) @ 256;
-			layout: BlGridLayout horizontal.
-		1 to: tileDimensions x do: [ :x | | point file image |
-			point := (topLeftNumber x + x - 1) @ (topLeftNumber y + y - 1).
-			file := osm filenameForTileNumber: point zoom: zoom.
-			image := (SkiaImage fromFile: file) asElement
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent ].
-			rowContainer addChild: image ].
-		tilesContainer addChild: rowContainer ].
+	tilesContainer := self buildTilesContainer.
+	
 	self
-		size: (tileDimensions x * 256) @ (tileDimensions y * 256);
+		size: (self tileDimensions x * 256) @ (self tileDimensions y * 256);
 		addChild: tilesContainer.
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> additionalNumberOfTilesAroundCenter [
+	"This is the default value of number of tiles above/below/left/right the center tile"
+	^ 1
 ]
 
 { #category : #accessing }
@@ -54,25 +44,84 @@ GtOsmCanvassableMap >> bottomRightTileNumber [
 ]
 
 { #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> buildTilesContainer [
+	| osm tileDimensions rowContainer centerNumber tiles |
+
+	tileDimensions := self tileDimensions.
+	centerNumber := self centerTileNumber.
+	osm := GtOpenStreetMapTiles new.
+	tiles := BlElement new
+			size: (tileDimensions x * 256) @ (tileDimensions y * 256);
+			layout: BlGridLayout vertical.
+
+	1 to: tileDimensions y
+		do: [ :y | 
+			rowContainer := BlElement new
+					size: (tileDimensions x * 256) @ 256;
+					layout: BlGridLayout horizontal.
+			1 to: tileDimensions x
+				do: [ :x | 
+					| point file image |
+					point := (centerNumber x + x - self additionalNumberOfTilesAroundCenter - 1)
+							@ (centerNumber y + y - self additionalNumberOfTilesAroundCenter - 1) + self centerTileOffset.
+					file := osm filenameForTileNumber: point zoom: zoom.
+					image := (SkiaImage fromFile: file) asElement
+							constraintsDo: [ :c | 
+								c horizontal matchParent.
+								c vertical matchParent ].
+					rowContainer addChild: image ].
+			tiles addChild: rowContainer ].
+
+	^ tiles
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> centerCoordinate [
+	^ centerCoordinate
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> centerCoordinate: aPoint [
+	centerCoordinate := aPoint
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> centerTileNumber [
+
+	^ GtOpenStreetMapTiles new getTileNumberLat: centerCoordinate y long: centerCoordinate x zoom: zoom
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> centerTileOffset [
+	^ centerTileOffset
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> centerTileOffset: aPoint [
+	centerTileOffset := aPoint
+]
+
+{ #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
-	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasMarginOffset canvasSize tilesSize additionalTilesOffset |
+	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasMarginOffset canvasSize tilesExtent additionalTilesOffset |
 
 	osmTiles := GtOpenStreetMapTiles new.
-	tileNumber := self topLeftTileNumber.
+	tileNumber := self centerTileNumber.
 	tileOffset := osmTiles
 			pixelPointAt: aPoint x @ aPoint y
 			tile: tileNumber
 			zoom: self zoom.
-	mx := (tileNumber x - self topLeftTileNumber x) * 256.
-	my := (tileNumber y - self topLeftTileNumber y) * 256.
+	mx := self additionalNumberOfTilesAroundCenter * 256.
+	my := self additionalNumberOfTilesAroundCenter * 256.
+	
 	additionalTilesOffset := mx@my.
 
 	canvasMarginOffset := 20@20.
 	canvasSize := (self parent parent measuredBounds extent x)@(self parent parent measuredBounds extent y).
-	tilesSize := (self measuredBounds extent x)@(self measuredBounds extent y).
-	mapOffset := (tilesSize / 2) - additionalTilesOffset - tileOffset.
+	tilesExtent := (self measuredBounds extent x)@(self measuredBounds extent y).
+	mapOffset := (tilesExtent / 2) - additionalTilesOffset - tileOffset.
 
-	resultTransformation := (canvasSize / 2) - (tilesSize / 2) - canvasMarginOffset + mapOffset.
+	resultTransformation := (canvasSize / 2) - (tilesExtent / 2) - canvasMarginOffset + mapOffset.
 
 	self childrenTranslationFactor: resultTransformation
 ]
@@ -116,17 +165,33 @@ GtOsmCanvassableMap >> initialize [
 	super initialize.
 	topLeftCoordinate := 1000 @ -1000.
 	bottomRightCoordinate := -1000 @ 1000.
+	centerTileOffset := 0@0.
+	tilesContainer := BlElement new.
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> scrollTiles: aPoint [
+
+	self centerTileOffset: self centerTileOffset + aPoint.
+	tilesContainer := self buildTilesContainer.
+
+	self
+		size: (self tileDimensions x * 256) @ (self tileDimensions y * 256);
+		removeChildAt: 1;
+		addChild: tilesContainer.
 ]
 
 { #category : #accessing }
 GtOsmCanvassableMap >> tileDimensions [
-	| topLeftTileNumber bottomRightTileNumber |
+	| dim |
 	
-	topLeftTileNumber := self topLeftTileNumber.
-	bottomRightTileNumber := self bottomRightTileNumber.
+	dim := self additionalNumberOfTilesAroundCenter * 2 + 1.
+	^ dim@dim
+]
 
-	^ ((topLeftTileNumber x - bottomRightTileNumber x) abs + 1) @
-		((topLeftTileNumber y - bottomRightTileNumber y) abs + 1)
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> tilesContainer [
+	^ tilesContainer
 ]
 
 { #category : #accessing }
