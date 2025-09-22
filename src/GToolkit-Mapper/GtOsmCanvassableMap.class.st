@@ -16,6 +16,8 @@ Class {
 GtOsmCanvassableMap >> addChildren [
 	tilesContainer := self buildTilesContainer.
 	
+	self enqueueTask: [ self focusViewOnCoordinate: self centerCoordinate ] asBlTask.
+	
 	self
 		size: (self tileDimensions x * 256) @ (self tileDimensions y * 256);
 		addChild: tilesContainer.
