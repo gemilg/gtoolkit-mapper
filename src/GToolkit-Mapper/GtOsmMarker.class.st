@@ -13,13 +13,13 @@ GtOsmMarker >> addToMap: aGtOsmMap [
 	| osmTiles tileNumber tileOffset mx my mapOffset marker |
 
 	osmTiles := GtOpenStreetMapTiles new.
-	tileNumber := osmTiles getTileNumberLat: coordinate y long: coordinate x zoom: aGtOsmMap zoom.
+	tileNumber := aGtOsmMap centerTileNumber.
 	tileOffset := osmTiles
 		pixelPointAt: coordinate
 		tile: tileNumber
 		zoom: aGtOsmMap zoom.
-	mx := (tileNumber x - aGtOsmMap topLeftTileNumber x) * 256.
-	my := (tileNumber y - aGtOsmMap topLeftTileNumber y) * 256.
+	mx := ((tileNumber x - aGtOsmMap centerTileNumber x) + aGtOsmMap additionalNumberOfTilesAroundCenter) * 256.
+	my := ((tileNumber y - aGtOsmMap centerTileNumber y) + aGtOsmMap additionalNumberOfTilesAroundCenter) * 256.
 	mapOffset := (mx @ my) + tileOffset.
 	marker := BlElement new
 		size: 5@5;
