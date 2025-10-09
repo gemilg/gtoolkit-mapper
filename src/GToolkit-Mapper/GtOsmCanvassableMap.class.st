@@ -12,15 +12,28 @@ Class {
 	#category : #'GToolkit-Mapper-Osm'
 }
 
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> addCenterMarker [
+	| marker |
+	marker := BlElement new
+			size: 5 @ 5;
+			relocate: self centerPointCanvassOffset;
+			geometry: BlCircleGeometry new;
+			background: Color blue.
+	self parent addChild: marker
+]
+
 { #category : #accessing }
 GtOsmCanvassableMap >> addChildren [
 	tilesContainer := self buildTilesContainer.
-	
-	self enqueueTask: [ self focusViewOnCoordinate: self centerCoordinate ] asBlTask.
-	
+
+	self
+		enqueueTask: [ self focusViewOnCoordinate: self centerCoordinate.
+			self addCenterMarker ] asBlTask.
+
 	self
 		size: (self tileDimensions x * 256) @ (self tileDimensions y * 256);
-		addChild: tilesContainer.
+		addChild: tilesContainer
 ]
 
 { #category : #'as yet unclassified' }
@@ -85,6 +98,11 @@ GtOsmCanvassableMap >> centerCoordinate [
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> centerCoordinate: aPoint [
 	centerCoordinate := aPoint
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> centerPointCanvassOffset [
+	^ (self parent bounds extent) / 2.
 ]
 
 { #category : #'as yet unclassified' }
