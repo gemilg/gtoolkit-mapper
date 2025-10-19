@@ -32,14 +32,14 @@ GtOsmCanvassableMap >> addChildren [
 			self addCenterMarker ] asBlTask.
 
 	self
-		size: (self tileDimensions x * 256) @ (self tileDimensions y * 256);
+		size: (self tilesContainerDimensions x * 256) @ (self tilesContainerDimensions y * 256);
 		addChild: tilesContainer
 ]
 
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> additionalNumberOfTilesAroundCenter [
 	"This is the default value of number of tiles above/below/left/right the center tile"
-	^ 1
+	^ 2
 ]
 
 { #category : #accessing }
@@ -90,41 +90,47 @@ GtOsmCanvassableMap >> buildTilesContainer [
 	^ tiles
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'view-properties' }
+GtOsmCanvassableMap >> canvasSize [
+	"Return the size in px, of canvas in which the GtOsmCanvassableMap is displayed.
+	Most likely, this is the size of inspector canvas."
+	^ self parent parent measuredBounds extent x
+		@ self parent parent measuredBounds extent y
+]
+
+{ #category : #'view-properties' }
 GtOsmCanvassableMap >> centerCoordinate [
 	^ centerCoordinate
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'view-properties' }
 GtOsmCanvassableMap >> centerCoordinate: aPoint [
 	centerCoordinate := aPoint
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'view-properties' }
 GtOsmCanvassableMap >> centerPointCanvassOffset [
 	^ (self parent bounds extent) / 2.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'view-properties' }
 GtOsmCanvassableMap >> centerTileNumber [
-
 	^ GtOpenStreetMapTiles new getTileNumberLat: centerCoordinate y long: centerCoordinate x zoom: zoom
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'view-properties' }
 GtOsmCanvassableMap >> centerTileOffset [
 	^ centerTileOffset
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'view-properties' }
 GtOsmCanvassableMap >> centerTileOffset: aPoint [
 	centerTileOffset := aPoint
 ]
 
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
-	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasMarginOffset canvasSize tilesExtent additionalTilesOffset |
-
+	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasMarginOffset canvasSize tilesContainerExtent additionalTilesOffset |
 	osmTiles := GtOpenStreetMapTiles new.
 	tileNumber := self centerTileNumber.
 	tileOffset := osmTiles
@@ -133,15 +139,16 @@ GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
 			zoom: self zoom.
 	mx := self additionalNumberOfTilesAroundCenter * 256.
 	my := self additionalNumberOfTilesAroundCenter * 256.
-	
-	additionalTilesOffset := mx@my.
 
-	canvasMarginOffset := 20@20.
-	canvasSize := (self parent parent measuredBounds extent x)@(self parent parent measuredBounds extent y).
-	tilesExtent := (self measuredBounds extent x)@(self measuredBounds extent y).
-	mapOffset := (tilesExtent / 2) - additionalTilesOffset - tileOffset.
+	additionalTilesOffset := mx @ my.
 
-	resultTransformation := (canvasSize / 2) - (tilesExtent / 2) - canvasMarginOffset + mapOffset.
+	canvasMarginOffset := 20 @ 20.
+	canvasSize := self canvasSize.
+	tilesContainerExtent := self tilesContainerPxSize.
+	mapOffset := tilesContainerExtent / 2 - additionalTilesOffset - tileOffset.
+
+	resultTransformation := canvasSize / 2 - (tilesContainerExtent / 2) - canvasMarginOffset
+			+ mapOffset.
 
 	self childrenTranslationFactor: resultTransformation
 ]
@@ -196,22 +203,38 @@ GtOsmCanvassableMap >> scrollTiles: aPoint [
 	tilesContainer := self buildTilesContainer.
 
 	self
-		size: (self tileDimensions x * 256) @ (self tileDimensions y * 256);
+		size: (self tilesContainerDimensions x * 256) @ (self tilesContainerDimensions y * 256);
 		removeChildAt: 1;
 		addChild: tilesContainer.
-]
-
-{ #category : #accessing }
-GtOsmCanvassableMap >> tileDimensions [
-	| dim |
-	
-	dim := self additionalNumberOfTilesAroundCenter * 2 + 1.
-	^ dim@dim
 ]
 
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> tilesContainer [
 	^ tilesContainer
+]
+
+{ #category : #'view-properties' }
+GtOsmCanvassableMap >> tilesContainerCenterPxOffsetFromCanvasCenter [
+^ ((self canvasSize / 2) - (self tilesContainerPxSize / 2) - self childrenTranslationFactor)
+]
+
+{ #category : #'view-properties' }
+GtOsmCanvassableMap >> tilesContainerDimensions [
+	| dim |
+	dim := self additionalNumberOfTilesAroundCenter * 2 + 1.
+	^ dim@dim
+]
+
+{ #category : #'view-properties' }
+GtOsmCanvassableMap >> tilesContainerPxSize [
+	| px |
+	px := 256 * (self additionalNumberOfTilesAroundCenter * 2 + 1).
+	^ px@px
+]
+
+{ #category : #'view-properties' }
+GtOsmCanvassableMap >> tilesExtent [
+	^ self measuredBounds extent x @ self measuredBounds extent y
 ]
 
 { #category : #accessing }

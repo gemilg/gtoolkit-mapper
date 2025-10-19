@@ -15,7 +15,7 @@ GtOsmPath >> addToMap: aGtOsmMap [
 	mapPoints := coordinates collect: [ :each |
 		self coordinateToMap: each map: aGtOsmMap ].
 	path := BlElement new
-				size: aGtOsmMap tileDimensions * 256;
+				size: aGtOsmMap tilesContainerDimensions * 256;
 				outskirts: BlOutskirts centered;
 				geometry: (BlPolyline vertices: mapPoints);
 				border: (BlBorder builder width: 3; paint: (Color red); build).
