@@ -22,7 +22,7 @@ Class {
 GtOsmMap >> addChildren [
 	| tilesContainer tileDimensions topLeftNumber osm rowContainer |
 
-	tileDimensions := self tileDimensions.
+	tileDimensions := self tilesContainerDimensions.
 	topLeftNumber := self topLeftTileNumber.
 	osm := GtOpenStreetMapTiles new.
 	tilesContainer := BlElement new
@@ -104,7 +104,7 @@ GtOsmMap >> initialize [
 ]
 
 { #category : #accessing }
-GtOsmMap >> tileDimensions [
+GtOsmMap >> tilesContainerDimensions [
 	| topLeftTileNumber bottomRightTileNumber |
 	
 	topLeftTileNumber := self topLeftTileNumber.

@@ -61,24 +61,26 @@ GtOsmCanvassableMap >> bottomRightTileNumber [
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> buildTilesContainer [
 	| osm tileDimensions rowContainer centerNumber tiles |
-
-	tileDimensions := self tileDimensions.
+	tileDimensions := self tilesContainerDimensions.
 	centerNumber := self centerTileNumber.
 	osm := GtOpenStreetMapTiles new.
 	tiles := BlElement new
 			size: (tileDimensions x * 256) @ (tileDimensions y * 256);
 			layout: BlGridLayout vertical.
 
-	1 to: tileDimensions y
+	1
+		to: tileDimensions y
 		do: [ :y | 
 			rowContainer := BlElement new
 					size: (tileDimensions x * 256) @ 256;
 					layout: BlGridLayout horizontal.
-			1 to: tileDimensions x
+			1
+				to: tileDimensions x
 				do: [ :x | 
 					| point file image |
 					point := (centerNumber x + x - self additionalNumberOfTilesAroundCenter - 1)
-							@ (centerNumber y + y - self additionalNumberOfTilesAroundCenter - 1) + self centerTileOffset.
+							@ (centerNumber y + y - self additionalNumberOfTilesAroundCenter - 1)
+							+ self centerTileOffset.
 					file := osm filenameForTileNumber: point zoom: zoom.
 					image := (SkiaImage fromFile: file) asElement
 							constraintsDo: [ :c | 
