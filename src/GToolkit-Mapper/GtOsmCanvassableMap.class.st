@@ -146,7 +146,7 @@ GtOsmCanvassableMap >> centerTileOffset: aPoint [
 
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
-	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasMarginOffset canvasSize tilesContainerExtent additionalTilesOffset |
+	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasSize tilesContainerExtent additionalTilesOffset |
 	osmTiles := GtOpenStreetMapTiles new.
 	tileNumber := self centerTileNumber.
 	tileOffset := osmTiles
@@ -158,13 +158,11 @@ GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
 
 	additionalTilesOffset := mx @ my.
 
-	canvasMarginOffset := 20 @ 20.
 	canvasSize := self canvasSize.
 	tilesContainerExtent := self tilesContainerPxSize.
 	mapOffset := tilesContainerExtent / 2 - additionalTilesOffset - tileOffset.
 
-	resultTransformation := canvasSize / 2 - (tilesContainerExtent / 2) - canvasMarginOffset
-			+ mapOffset.
+	resultTransformation := canvasSize / 2 - (tilesContainerExtent / 2) + mapOffset.
 
 	self childrenTranslationFactor: resultTransformation
 ]
