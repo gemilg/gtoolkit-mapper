@@ -14,12 +14,18 @@ Class {
 
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> addCenterMarker [
-	| marker |
-	marker := BlElement new
-			size: 5 @ 5;
-			relocate: self centerPointCanvassOffset;
-			geometry: BlCircleGeometry new;
-			background: Color blue.
+	| marker horizontal vertical |
+	horizontal := BlElement new
+			geometry: (BlLineGeometry from: 0 @ 10 to: 20 @ 10);
+			border: (BlBorder paint: Color red).
+	vertical := BlElement new
+			geometry: (BlLineGeometry from: 10 @ 0 to: 10 @ 20);
+			border: (BlBorder paint: Color red).
+	marker := BlElement new 
+		relocate: (self centerPointCanvassOffset - (10@10));
+		addChild: horizontal;
+		addChild: vertical.
+		
 	self parent addChild: marker
 ]
 
