@@ -29,33 +29,6 @@ GtOsmCanvassableMap >> addCenterMarker [
 	self parent addChild: marker
 ]
 
-{ #category : #accessing }
-GtOsmCanvassableMap >> addChildren [
-	tilesContainer := self buildTilesContainer.
-
-	self
-		enqueueTask: [ self focusViewOnCoordinate: self centerCoordinate.
-			self addCenterMarker ] asBlTask.
-
-	self
-		size: (self tilesContainerDimensions x * 256)
-				@ (self tilesContainerDimensions y * 256);
-		addChild: tilesContainer.
-
-	self
-		when: BlDragEndEvent
-		do: [ :evt | 
-			| tileTranslation pxTranslation |
-			tileTranslation := (self tilesContainerCenterPxOffsetFromCanvasCenter
-					+ (128 @ 128)) // 256.
-			pxTranslation := tileTranslation * 256.
-
-			tileTranslation ~= (0 @ 0)
-				ifTrue: [ self scrollTiles: tileTranslation.
-					self
-						childrenTranslationFactor: self childrenTranslationFactor + pxTranslation ] ]
-]
-
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> additionalNumberOfTilesAroundCenter [
 	"This is the default value of number of tiles above/below/left/right the center tile"
@@ -148,6 +121,33 @@ GtOsmCanvassableMap >> centerTileOffset [
 { #category : #'view-properties' }
 GtOsmCanvassableMap >> centerTileOffset: aPoint [
 	centerTileOffset := aPoint
+]
+
+{ #category : #accessing }
+GtOsmCanvassableMap >> drawEverything [
+	tilesContainer := self buildTilesContainer.
+
+	self
+		enqueueTask: [ self focusViewOnCoordinate: self centerCoordinate.
+			self addCenterMarker ] asBlTask.
+
+	self
+		size: (self tilesContainerDimensions x * 256)
+				@ (self tilesContainerDimensions y * 256);
+		addChild: tilesContainer.
+
+	self
+		when: BlDragEndEvent
+		do: [ :evt | 
+			| tileTranslation pxTranslation |
+			tileTranslation := (self tilesContainerCenterPxOffsetFromCanvasCenter
+					+ (128 @ 128)) // 256.
+			pxTranslation := tileTranslation * 256.
+
+			tileTranslation ~= (0 @ 0)
+				ifTrue: [ self scrollTiles: tileTranslation.
+					self
+						childrenTranslationFactor: self childrenTranslationFactor + pxTranslation ] ]
 ]
 
 { #category : #'as yet unclassified' }
