@@ -1,56 +1,13 @@
 Class {
 	#name : #GtOsmMarker,
-	#superclass : #Object,
-	#instVars : [
-		'coordinate'
-	],
+	#superclass : #GtOsmWidget,
 	#category : #'GToolkit-Mapper-Osm'
 }
 
-{ #category : #accessing }
-GtOsmMarker >> addToMap: aGtOsmMap [
-	"Add the receiver to the supplied map"
-	| osmTiles tileNumber tileOffset mx my mapOffset marker |
-
-	osmTiles := GtOpenStreetMapTiles new.
-	tileNumber := aGtOsmMap centerTileNumber.
-	tileOffset := osmTiles
-		pixelPointAt: coordinate
-		tile: tileNumber
-		zoom: aGtOsmMap zoom.
-	mx := ((tileNumber x - aGtOsmMap centerTileNumber x) + aGtOsmMap additionalNumberOfTilesAroundCenter) * 256.
-	my := ((tileNumber y - aGtOsmMap centerTileNumber y) + aGtOsmMap additionalNumberOfTilesAroundCenter) * 256.
-	mapOffset := (mx @ my) + tileOffset.
-	marker := BlElement new
+{ #category : #'as yet unclassified' }
+GtOsmMarker >> drawWidget [
+	^ BlElement new
 		size: 5@5;
-		relocate: mapOffset;
 		geometry: BlCircleGeometry new;
 		background: Color red.
-	aGtOsmMap addChild: marker.
-]
-
-{ #category : #accessing }
-GtOsmMarker >> coordinate [
-	<return: #Point>
-
-	^ coordinate
-]
-
-{ #category : #accessing }
-GtOsmMarker >> coordinate: aPoint [
-	"Set the receiver's location to the supplied lon @ lat."
-
-	coordinate := aPoint
-]
-
-{ #category : #accessing }
-GtOsmMarker >> osmUrl [
-	"Answer an OSM URL at the receiver's location"
-
-	^ String streamContents: [ :stream |
-		stream
-			<< 'https://www.openstreetmap.org/#map=15/';
-			<< self coordinate y asString;
-			<< '/';
-			<< self coordinate x asString ]
 ]
