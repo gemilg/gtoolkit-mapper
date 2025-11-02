@@ -7,7 +7,8 @@ Class {
 		'zoom',
 		'centerCoordinate',
 		'centerTileOffset',
-		'tilesContainer'
+		'tilesContainer',
+		'widgets'
 	],
 	#category : #'GToolkit-Mapper-Osm'
 }
@@ -27,6 +28,11 @@ GtOsmCanvassableMap >> addCenterMarker [
 		addChild: vertical.
 		
 	self parent addChild: marker
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> addWidget: aWidget [
+	widgets add: aWidget
 ]
 
 { #category : #'as yet unclassified' }
@@ -151,6 +157,12 @@ GtOsmCanvassableMap >> drawEverything [
 ]
 
 { #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> drawWidgets [
+	"Implement this"
+	widgets do: [ :w | Transcript show: (w asString)]
+]
+
+{ #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
 	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasSize tilesContainerExtent additionalTilesOffset |
 	osmTiles := GtOpenStreetMapTiles new.
@@ -214,6 +226,12 @@ GtOsmCanvassableMap >> initialize [
 	bottomRightCoordinate := -1000 @ 1000.
 	centerTileOffset := 0@0.
 	tilesContainer := BlElement new.
+	widgets := OrderedCollection new.
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> removeWidget: aWidget [
+	widgets remove: aWidget
 ]
 
 { #category : #'as yet unclassified' }
