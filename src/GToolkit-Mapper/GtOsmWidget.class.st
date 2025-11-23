@@ -14,6 +14,12 @@ GtOsmWidget >> addToMap: aGtOsmMap [
 	aGtOsmMap addWidget: self.
 ]
 
+{ #category : #'as yet unclassified' }
+GtOsmWidget >> attachPointOffset [
+	"Return px offset which points to actual widget coordinates."
+	self subclassResponsibility.
+]
+
 { #category : #accessing }
 GtOsmWidget >> coordinate [
 	<return: #Point>
