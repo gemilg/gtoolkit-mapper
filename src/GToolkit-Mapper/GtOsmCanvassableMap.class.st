@@ -136,10 +136,13 @@ GtOsmCanvassableMap >> drawEverything [
 
 	self
 		enqueueTask: [
-			self focusViewOnCoordinate: self centerCoordinate.
 			self addCenterMarker .
 			self redrawWidgets.
+			self focusViewOnCoordinate: self centerCoordinate.
 			] asBlTask.
+
+	widgetsLayer size: (self tilesContainerDimensions x * 256)
+					@ (self tilesContainerDimensions y * 256).
 
 	self
 		size: (self tilesContainerDimensions x * 256)
@@ -232,7 +235,25 @@ GtOsmCanvassableMap >> initialize [
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> redrawWidgets [
 	widgetsLayer removeChildren.
-	widgets do: [ :w | widgetsLayer addChild: (w drawWidget)].
+	widgets do: [ :w | | blEl tileNumber osmTiles tileOffset mx my resultTransformation additionalTilesOffset |
+		osmTiles := GtOpenStreetMapTiles new.
+		tileNumber := self centerTileNumber.
+		tileOffset := osmTiles
+			pixelPointAt: w coordinate
+			tile: tileNumber
+			zoom: self zoom.
+		mx := (self additionalNumberOfTilesAroundCenter - self centerTileOffset x) * 256.
+		my := (self additionalNumberOfTilesAroundCenter - self centerTileOffset y) * 256.
+
+		additionalTilesOffset := mx @ my.
+
+		resultTransformation := tileOffset + additionalTilesOffset + w attachPointOffset.
+		
+		blEl := w drawWidget.
+		blEl relocate: resultTransformation.
+	
+		widgetsLayer addChild: blEl.
+	].
 ]
 
 { #category : #'as yet unclassified' }
@@ -250,8 +271,9 @@ GtOsmCanvassableMap >> scrollTiles: aPoint [
 	self
 		size: (self tilesContainerDimensions x * 256) @ (self tilesContainerDimensions y * 256);
 		addChildFirst: tilesContainer.
-		
-	"TODO: Change positions of widgets on canvas here!"
+
+	"TODO do we need to redrawWidgets? maybe just move them?"
+	self redrawWidgets.
 ]
 
 { #category : #'as yet unclassified' }
