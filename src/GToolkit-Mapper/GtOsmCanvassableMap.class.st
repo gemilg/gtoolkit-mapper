@@ -8,7 +8,8 @@ Class {
 		'centerCoordinate',
 		'centerTileOffset',
 		'tilesContainer',
-		'widgets'
+		'widgets',
+		'widgetsLayer'
 	],
 	#category : #'GToolkit-Mapper-Osm'
 }
@@ -134,13 +135,17 @@ GtOsmCanvassableMap >> drawEverything [
 	tilesContainer := self buildTilesContainer.
 
 	self
-		enqueueTask: [ self focusViewOnCoordinate: self centerCoordinate.
-			self addCenterMarker ] asBlTask.
+		enqueueTask: [
+			self focusViewOnCoordinate: self centerCoordinate.
+			self addCenterMarker .
+			self redrawWidgets.
+			] asBlTask.
 
 	self
 		size: (self tilesContainerDimensions x * 256)
 				@ (self tilesContainerDimensions y * 256);
-		addChild: tilesContainer.
+		addChildFirst: tilesContainer;
+		addChild: widgetsLayer.
 
 	self
 		when: BlDragEndEvent
@@ -154,12 +159,6 @@ GtOsmCanvassableMap >> drawEverything [
 				ifTrue: [ self scrollTiles: tileTranslation.
 					self
 						childrenTranslationFactor: self childrenTranslationFactor + pxTranslation ] ]
-]
-
-{ #category : #'as yet unclassified' }
-GtOsmCanvassableMap >> drawWidgets [
-	"Implement this"
-	widgets do: [ :w | Transcript show: (w asString)]
 ]
 
 { #category : #'as yet unclassified' }
@@ -226,7 +225,14 @@ GtOsmCanvassableMap >> initialize [
 	bottomRightCoordinate := -1000 @ 1000.
 	centerTileOffset := 0@0.
 	tilesContainer := BlElement new.
+	widgetsLayer := BlElement new.
 	widgets := OrderedCollection new.
+]
+
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> redrawWidgets [
+	widgetsLayer removeChildren.
+	widgets do: [ :w | widgetsLayer addChild: (w drawWidget)].
 ]
 
 { #category : #'as yet unclassified' }
@@ -238,12 +244,14 @@ GtOsmCanvassableMap >> removeWidget: aWidget [
 GtOsmCanvassableMap >> scrollTiles: aPoint [
 
 	self centerTileOffset: self centerTileOffset + aPoint.
+	self removeChild: tilesContainer.
 	tilesContainer := self buildTilesContainer.
 
 	self
 		size: (self tilesContainerDimensions x * 256) @ (self tilesContainerDimensions y * 256);
-		removeChildAt: 1;
-		addChild: tilesContainer.
+		addChildFirst: tilesContainer.
+		
+	"TODO: Change positions of widgets on canvas here!"
 ]
 
 { #category : #'as yet unclassified' }
