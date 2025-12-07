@@ -2,7 +2,8 @@ Class {
 	#name : #GtOsmWidget,
 	#superclass : #Object,
 	#instVars : [
-		'coordinate'
+		'coordinate',
+		'map'
 	],
 	#category : #'GToolkit-Mapper-Osm'
 }
@@ -12,6 +13,7 @@ GtOsmWidget >> addToMap: aGtOsmMap [
 	"Add the receiver to the supplied map"
 
 	aGtOsmMap addWidget: self.
+	map := aGtOsmMap.
 ]
 
 { #category : #'as yet unclassified' }
