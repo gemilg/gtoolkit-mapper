@@ -235,22 +235,22 @@ GtOsmCanvassableMap >> initialize [
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> redrawWidgets [
 	widgetsLayer removeChildren.
-	widgets do: [ :w | | blEl tileNumber osmTiles tileOffset mx my resultTransformation additionalTilesOffset |
+	widgets do: [ :w | | blEl tileNumber osmTiles singleTilePxOffset mx my resultTransformation additionalTilesPxOffset |
 		osmTiles := GtOpenStreetMapTiles new.
 		tileNumber := self centerTileNumber.
-		tileOffset := osmTiles
+		singleTilePxOffset := osmTiles
 			pixelPointAt: w coordinate
 			tile: tileNumber
 			zoom: self zoom.
 		mx := (self additionalNumberOfTilesAroundCenter - self centerTileOffset x) * 256.
 		my := (self additionalNumberOfTilesAroundCenter - self centerTileOffset y) * 256.
 
-		additionalTilesOffset := mx @ my.
+		additionalTilesPxOffset := mx @ my.
 
-		resultTransformation := tileOffset + additionalTilesOffset + w attachPointOffset.
+		resultTransformation := singleTilePxOffset + additionalTilesPxOffset + w attachPointOffset.
 		
 		blEl := w drawWidget.
-		blEl relocate: resultTransformation.
+		blEl relocate: resultTransformation - blEl visualBounds origin.
 	
 		widgetsLayer addChild: blEl.
 	].
