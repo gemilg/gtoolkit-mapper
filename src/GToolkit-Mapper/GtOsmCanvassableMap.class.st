@@ -39,7 +39,7 @@ GtOsmCanvassableMap >> addWidget: aWidget [
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> additionalNumberOfTilesAroundCenter [
 	"This is the default value of number of tiles above/below/left/right the center tile"
-	^ 2
+	^ 3
 ]
 
 { #category : #accessing }
