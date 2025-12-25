@@ -10,6 +10,8 @@ You can load the whole code in GT using the following snippet:
     baseline: 'GToolkitMapperWithoutGT';
     repository: 'github://feenkcom/gtoolkit-mapper/src';
     load
+    
+  #BaselineOfGToolkitMapperWithoutGT asClass loadLepiter.
 ```
 
 Or depend on it from your baseline:
