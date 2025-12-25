@@ -30,6 +30,15 @@ Class {
 	#category : #BaselineOfGToolkitMapperWithoutGT
 }
 
+{ #category : #'as yet unclassified' }
+BaselineOfGToolkitMapperWithoutGT class >> loadLepiter [
+	| currentProperties |
+	currentProperties := LeDatabasesRegistry defaultLogicalDatabase properties.
+	currentProperties
+		addRegisteredDirectory: FileLocator imageDirectory / 'pharo-local' / 'iceberg' / 'gemilg' / 'gtoolkit-mapper' / 'OSM-db'.
+	LeDatabasesRegistry default defaultLogicalDatabase reload
+]
+
 { #category : #baselines }
 BaselineOfGToolkitMapperWithoutGT >> baseline: spec [
 	<baseline>
