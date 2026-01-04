@@ -89,7 +89,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-03T18:24:10.06282+02:00"
+						"dateAndTimeString" : "2026-01-04T13:07:47.10753+01:00"
 					}
 				},
 				"editEmail" : {
@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-03T18:24:23.033819+02:00"
+						"dateAndTimeString" : "2026-01-04T13:29:41.873871+01:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Display the GtOsmMap with specific coordinates:"
+				"string" : "Set the initiail coordinates where the view ."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -145,6 +145,43 @@
 					"uidString" : "AHZJOsj8DQCKaRDtDHVQPg=="
 				},
 				"code" : "lon := 13.95.\rlat := 50.45."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-04T13:07:36.70052+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-04T13:24:27.368849+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "mYJzhvADDgC43nT+C8Y9/Q=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Instantiate and display the GtOsmMap with specific coordinates(press inspect)."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -242,14 +279,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-11-23T21:02:52.991414+01:00"
+						"dateAndTimeString" : "2026-01-04T13:18:33.033536+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "mw8EK9r3DQCbx/EiCYwlmg=="
 				},
-				"code" : "marker := GtOsmMarker new.\rmarker coordinate: lon@lat; addToMap: osmMap.\rosmMap redrawWidgets."
+				"code" : "marker := GtOsmMarker new.\rmarker coordinate: lon@lat.\rmarker addToMap: osmMap.\rosmMap redrawWidgets."
 			},
 			{
 				"__type" : "textSnippet",
@@ -347,7 +384,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-08T20:15:57.382+02:00"
+						"dateAndTimeString" : "2026-01-04T13:26:28.175856+01:00"
 					}
 				},
 				"uid" : {
@@ -357,7 +394,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Dynamically change the zoomLevel(This ofc does not work properly if we added a marker before, the canvas is cleared and redrawn). "
+				"string" : "Change the zoomLevel. "
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -384,14 +421,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-10-25T16:00:54.141277+02:00"
+						"dateAndTimeString" : "2026-01-04T13:26:34.34717+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GCyykPr3DQC3MqhpCwTj0Q=="
 				},
-				"code" : "osmMap updateZoom: 14.\rosmMap removeChildren.\rosmMap drawEverything.\r^ osmMap"
+				"code" : "osmMap updateZoom: 13.\rosmMap removeChildren.\rosmMap drawEverything."
 			},
 			{
 				"__type" : "textSnippet",
@@ -418,7 +455,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-19T11:05:17.179+02:00"
+						"dateAndTimeString" : "2026-01-04T13:29:18.408923+01:00"
 					}
 				},
 				"uid" : {
@@ -428,7 +465,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Lets focus the view on specific coordinate with focusViewOnCoordinate member:"
+				"string" : "Focus the view on specific coordinate with initial coordinates."
 			},
 			{
 				"__type" : "pharoSnippet",
