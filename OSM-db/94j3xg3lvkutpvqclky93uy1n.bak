@@ -66,14 +66,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-05T08:43:35.266+02:00"
+						"dateAndTimeString" : "2025-12-28T12:19:29.441023+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "tBCtJ9r3DQCbn55oCYwlmg=="
 				},
-				"code" : "  Metacello new\n    baseline: 'GToolkitMapperWithoutGT';\n    repository: 'github://gemilg/gtoolkit-mapper/src';\n    load ."
+				"code" : "Metacello new\n  baseline: 'GToolkitMapperWithoutGT';\n  repository: 'github://gemilg/gtoolkit-mapper/src';\n  load ."
 			},
 			{
 				"__type" : "textSnippet",
@@ -463,77 +463,6 @@
 					"uidString" : "8KJGMhX5DQCxpAfBBK/sdw=="
 				},
 				"code" : "osmMap focusViewOnCoordinate: lon@lat."
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-24T13:41:58.763913+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-24T13:42:23.514501+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "P5LjqXz5DQC6DCsaDkjQyQ=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "Lets add BlEvent when dragging(currently we will use BlDragEndEvent):"
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-24T13:42:26.808471+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-10-19T17:59:40.626079+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "zH+Pq3z5DQC7hxggDkjQyQ=="
-				},
-				"code" : "osmMap when: BlDragEndEvent do: [ :evt | | tileTranslation pxTranslation |\r\ttileTranslation := ((osmMap tilesContainerCenterPxOffsetFromCanvasCenter + (128@128)) // 256).\r\tpxTranslation := tileTranslation * 256.\r\r\t(tileTranslation ~= (0@0)) ifTrue: [\r\t\tosmMap scrollTiles: tileTranslation.\r\t\tosmMap childrenTranslationFactor: osmMap childrenTranslationFactor + pxTranslation\r\t\t]\r\t]"
 			}
 		]
 	},
