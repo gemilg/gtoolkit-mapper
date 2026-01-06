@@ -130,6 +130,29 @@ GtOsmCanvassableMap >> centerTileOffset: aPoint [
 	centerTileOffset := aPoint
 ]
 
+{ #category : #'draw-canvas' }
+GtOsmCanvassableMap >> coordinateToPxOnCanvas: aCoordinate [
+	"Calculate px position of aCoordinate on canvas, where 0@0 is the top left corner of center tile in tilesContainer.
+	Calculated px position can point to outside of canvas."
+	| osmTiles tileNumber centerTilePxOffset centerTileNumber |
+	osmTiles := GtOpenStreetMapTiles new.
+	
+	centerTileNumber := osmTiles
+			getTileNumberLat: centerCoordinate y
+			long: centerCoordinate x
+			zoom: self zoom.
+	tileNumber := osmTiles
+			getTileNumberLat: aCoordinate y
+			long: aCoordinate x
+			zoom: self zoom.
+	centerTilePxOffset := osmTiles
+			pixelPointAt: aCoordinate
+			tile: tileNumber
+			zoom: self zoom.
+
+	^ centerTilePxOffset + ((tileNumber - centerTileNumber) * 256) + (self additionalNumberOfTilesAroundCenter * 256)
+]
+
 { #category : #accessing }
 GtOsmCanvassableMap >> drawEverything [
 	tilesContainer := self buildTilesContainer.

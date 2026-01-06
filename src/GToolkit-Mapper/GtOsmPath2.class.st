@@ -13,28 +13,6 @@ GtOsmPath2 >> attachPointOffset [
 ]
 
 { #category : #accessing }
-GtOsmPath2 >> coordinateToMap: aPoint map: aGtOsmMap [
-	| osmTiles tileNumber tileOffset mx my initialTileNumber |
-	osmTiles := GtOpenStreetMapTiles new.
-
-	"TODO, this can be calculated only once."
-	initialTileNumber := osmTiles
-			getTileNumberLat: coordinate y
-			long: coordinate x
-			zoom: aGtOsmMap zoom.
-	tileNumber := osmTiles
-			getTileNumberLat: aPoint y
-			long: aPoint x
-			zoom: aGtOsmMap zoom.
-	tileOffset := osmTiles
-			pixelPointAt: aPoint
-			tile: tileNumber
-			zoom: aGtOsmMap zoom.
-
-	^ tileOffset + ((tileNumber - initialTileNumber) * 256).
-]
-
-{ #category : #accessing }
 GtOsmPath2 >> coordinates [
 	<return: #Array of: #Point>
 
@@ -51,7 +29,7 @@ GtOsmPath2 >> coordinates: anObject [
 GtOsmPath2 >> drawWidget [
 	| mapPoints |
 	mapPoints := coordinates collect: [ :each |
-		self coordinateToMap: each map: map ].
+		map coordinateToPxOnCanvas: each ].
 
 	^ BlElement new
 		outskirts: BlOutskirts centered;
