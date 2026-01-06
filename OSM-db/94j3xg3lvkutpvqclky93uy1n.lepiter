@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-04T13:29:41.873871+01:00"
+						"dateAndTimeString" : "2026-01-06T14:30:33.041087+01:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Set the initiail coordinates where the view ."
+				"string" : "Set the initial coordinates where the view will be focused."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -137,7 +137,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-10-25T12:35:31.302711+02:00"
+						"dateAndTimeString" : "2026-01-06T13:57:38.388852+01:00"
 					}
 				},
 				"uid" : {
@@ -208,14 +208,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-10-25T16:00:54.36404+02:00"
+						"dateAndTimeString" : "2026-01-06T13:45:30.145094+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "fg1cKcj8DQCGm62iDHVQPg=="
 				},
-				"code" : "osmMap := GtOsmCanvassableMap new\r\tcenterCoordinate: lon@lat;\r\tzoom: 14.\r\t\rosmMap drawEverything.\r^osmMap"
+				"code" : "osmMap := GtOsmCanvassableMap new\r\tcenterCoordinate: lon@lat;\r\tzoom: 14.\r\rosmMap drawEverything.\r^osmMap"
 			},
 			{
 				"__type" : "textSnippet",
@@ -421,14 +421,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-04T13:26:34.34717+01:00"
+						"dateAndTimeString" : "2026-01-06T12:38:21.502112+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GCyykPr3DQC3MqhpCwTj0Q=="
 				},
-				"code" : "osmMap updateZoom: 13.\rosmMap removeChildren.\rosmMap drawEverything."
+				"code" : "osmMap updateZoom: 16.\rosmMap removeChildren.\rosmMap drawEverything."
 			},
 			{
 				"__type" : "textSnippet",
