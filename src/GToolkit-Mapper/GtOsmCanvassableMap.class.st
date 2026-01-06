@@ -14,7 +14,7 @@ Class {
 	#category : #'GToolkit-Mapper-Osm'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> addCenterMarker [
 	| marker horizontal vertical |
 	horizontal := BlElement new
@@ -31,12 +31,12 @@ GtOsmCanvassableMap >> addCenterMarker [
 	self parent addChild: marker
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> addWidget: aWidget [
 	widgets add: aWidget
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'view-properties' }
 GtOsmCanvassableMap >> additionalNumberOfTilesAroundCenter [
 	"This is the default value of number of tiles above/below/left/right the center tile"
 	^ 3
@@ -58,7 +58,7 @@ GtOsmCanvassableMap >> bottomRightTileNumber [
 	^ GtOpenStreetMapTiles new getTileNumberLat: bottomRightCoordinate y long: bottomRightCoordinate x zoom: zoom
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> buildTilesContainer [
 	| osm tileDimensions rowContainer centerNumber tiles |
 	tileDimensions := self tilesContainerDimensions.
@@ -153,14 +153,14 @@ GtOsmCanvassableMap >> coordinateToPxOnCanvas: aCoordinate [
 	^ centerTilePxOffset + ((tileNumber - centerTileNumber) * 256) + (self additionalNumberOfTilesAroundCenter * 256)
 ]
 
-{ #category : #accessing }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> drawEverything [
 	tilesContainer := self buildTilesContainer.
 
 	self
 		enqueueTask: [
 			self addCenterMarker .
-			self redrawWidgets.
+			"self redrawWidgets."
 			self focusViewOnCoordinate: self centerCoordinate.
 			] asBlTask.
 
@@ -187,7 +187,7 @@ GtOsmCanvassableMap >> drawEverything [
 						childrenTranslationFactor: self childrenTranslationFactor + pxTranslation ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
 	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasSize tilesContainerExtent additionalTilesOffset |
 	osmTiles := GtOpenStreetMapTiles new.
@@ -207,7 +207,10 @@ GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
 
 	resultTransformation := canvasSize / 2 - (tilesContainerExtent / 2) + mapOffset.
 
-	self childrenTranslationFactor: resultTransformation
+	self childrenTranslationFactor: resultTransformation.
+	
+	Transcript show: 'centerTileOffset: ', (centerTileOffset asString); cr.
+	"self scrollTiles: 0 -centerTileOffset."
 ]
 
 { #category : #accessing }
@@ -255,7 +258,7 @@ GtOsmCanvassableMap >> initialize [
 	widgets := OrderedCollection new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> redrawWidgets [
 	widgetsLayer removeChildren.
 	widgets do: [ :w | | blEl tileNumber osmTiles singleTilePxOffset mx my resultTransformation additionalTilesPxOffset |
@@ -279,12 +282,12 @@ GtOsmCanvassableMap >> redrawWidgets [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> removeWidget: aWidget [
 	widgets remove: aWidget
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> scrollTiles: aPoint [
 
 	self centerTileOffset: self centerTileOffset + aPoint.
@@ -299,7 +302,7 @@ GtOsmCanvassableMap >> scrollTiles: aPoint [
 	self redrawWidgets.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtOsmCanvassableMap >> tilesContainer [
 	^ tilesContainer
 ]
