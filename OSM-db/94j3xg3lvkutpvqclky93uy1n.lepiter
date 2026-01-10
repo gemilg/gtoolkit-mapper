@@ -373,7 +373,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-05T09:03:40.076+02:00"
+						"dateAndTimeString" : "2026-01-10T23:07:18.31894+01:00"
 					}
 				},
 				"editEmail" : {
@@ -384,7 +384,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-04T13:26:28.175856+01:00"
+						"dateAndTimeString" : "2026-01-10T23:07:22.047334+01:00"
 					}
 				},
 				"uid" : {
@@ -394,7 +394,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Change the zoomLevel. "
+				"string" : "Zoom in."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -421,14 +421,85 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-06T12:38:21.502112+01:00"
+						"dateAndTimeString" : "2026-01-10T23:07:29.097823+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GCyykPr3DQC3MqhpCwTj0Q=="
 				},
-				"code" : "osmMap updateZoom: 16.\rosmMap removeChildren.\rosmMap drawEverything."
+				"code" : "osmMap zoomIn."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-10T23:12:35.142363+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-10T23:12:38.505517+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "AwcOrXEEDgCL21YdCIF/aQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Zoom out."
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-10T23:12:29.089177+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-10T23:12:45.479494+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "wamxrHEEDgCL2t3iCIF/aQ=="
+				},
+				"code" : "osmMap zoomOut."
 			},
 			{
 				"__type" : "textSnippet",

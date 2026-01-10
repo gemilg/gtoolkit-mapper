@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-04T13:29:45.920289+01:00"
+						"dateAndTimeString" : "2026-01-06T14:30:33.041087+01:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Set the initiail coordinates where the view will be focused."
+				"string" : "Set the initial coordinates where the view will be focused."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -216,77 +216,6 @@
 					"uidString" : "fg1cKcj8DQCGm62iDHVQPg=="
 				},
 				"code" : "osmMap := GtOsmCanvassableMap new\r\tcenterCoordinate: lon@lat;\r\tzoom: 14.\r\rosmMap drawEverything.\r^osmMap"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-06T13:45:42.637129+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-06T13:45:59.016092+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "auJiShkEDgCFWFGQBnc2Gw=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "Show pxOffset of coordinate"
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-06T13:46:07.627798+01:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-06T14:00:00.815065+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "NjbgSxkEDgCGKxnUBnc2Gw=="
-				},
-				"code" : "osmMap coordinateToPxOnCanvas: 13.95@50.45."
 			},
 			{
 				"__type" : "textSnippet",
@@ -444,7 +373,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-05T09:03:40.076+02:00"
+						"dateAndTimeString" : "2026-01-10T23:07:18.31894+01:00"
 					}
 				},
 				"editEmail" : {
@@ -455,7 +384,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-04T13:26:28.175856+01:00"
+						"dateAndTimeString" : "2026-01-10T23:07:22.047334+01:00"
 					}
 				},
 				"uid" : {
@@ -465,7 +394,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Change the zoomLevel. "
+				"string" : "Zoom in."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -492,14 +421,48 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-06T12:38:21.502112+01:00"
+						"dateAndTimeString" : "2026-01-10T23:07:29.097823+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "GCyykPr3DQC3MqhpCwTj0Q=="
 				},
-				"code" : "osmMap updateZoom: 16.\rosmMap removeChildren.\rosmMap drawEverything."
+				"code" : "osmMap zoomIn."
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-10T23:12:29.089177+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-01-10T23:12:29.089177+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "wamxrHEEDgCL2t3iCIF/aQ=="
+				},
+				"code" : ""
 			},
 			{
 				"__type" : "textSnippet",
