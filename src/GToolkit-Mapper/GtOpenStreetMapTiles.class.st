@@ -38,6 +38,23 @@ GtOpenStreetMapTiles >> getCoordinatesForX: xTile y: yTile zoom: zoom [
 ]
 
 { #category : #accessing }
+GtOpenStreetMapTiles >> getCoordinatesForX: xTile y: yTile zoom: zoom pxX: pxX pxY: pxY [
+	"Answer longitude @ latitude degrees.
+	This method also takes into account the px offset."
+	<return: #Point>
+	| n longDeg latDeg longDegOffset latDegOffset |
+
+	n := 2 ** zoom.
+	longDegOffset := pxX / 256.0.
+	latDegOffset := pxY / 256.0.
+	longDeg := (xTile + longDegOffset) / n * 360.0 - 180.0.
+	n := Float pi - (2 * Float pi * (yTile + latDegOffset) / n).
+	latDeg := 180.0 / Float pi
+			* (0.5 * (Float e ** n - (Float e ** (0 - n)))) arcTan.
+	^ longDeg @ latDeg
+]
+
+{ #category : #accessing }
 GtOpenStreetMapTiles >> getTileLat: latDeg long: longDeg zoom: zoom [
 	<return: #AbstractFileReference>
 	| point tileFilename |
