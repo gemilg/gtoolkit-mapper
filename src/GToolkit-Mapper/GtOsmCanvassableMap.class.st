@@ -209,14 +209,12 @@ GtOsmCanvassableMap >> includeCoordinate: aPoint [
 
 { #category : #accessing }
 GtOsmCanvassableMap >> initialize [
-
 	super initialize.
 	topLeftCoordinate := 1000 @ -1000.
 	bottomRightCoordinate := -1000 @ 1000.
-	centerTileOffset := 0@0.
 	tilesContainer := BlElement new.
 	widgetsLayer := BlElement new.
-	widgets := OrderedCollection new.
+	widgets := OrderedCollection new
 ]
 
 { #category : #'draw-canvas' }
