@@ -6,7 +6,6 @@ Class {
 		'bottomRightCoordinate',
 		'zoom',
 		'centerCoordinate',
-		'centerTileOffset',
 		'tilesContainer',
 		'widgets',
 		'widgetsLayer'
@@ -79,8 +78,7 @@ GtOsmCanvassableMap >> buildTilesContainer [
 				do: [ :x | 
 					| point file image |
 					point := (centerNumber x + x - self additionalNumberOfTilesAroundCenter - 1)
-							@ (centerNumber y + y - self additionalNumberOfTilesAroundCenter - 1)
-							+ self centerTileOffset.
+							@ (centerNumber y + y - self additionalNumberOfTilesAroundCenter - 1).
 					file := osm filenameForTileNumber: point zoom: zoom.
 					image := (SkiaImage fromFile: file) asElement
 							constraintsDo: [ :c | 
@@ -101,16 +99,6 @@ GtOsmCanvassableMap >> canvasSize [
 ]
 
 { #category : #'view-properties' }
-GtOsmCanvassableMap >> centerCoordinate [
-	^ centerCoordinate
-]
-
-{ #category : #'view-properties' }
-GtOsmCanvassableMap >> centerCoordinate: aPoint [
-	centerCoordinate := aPoint
-]
-
-{ #category : #'view-properties' }
 GtOsmCanvassableMap >> centerPointCanvassOffset [
 	^ (self parent bounds extent) / 2.
 ]
@@ -118,16 +106,6 @@ GtOsmCanvassableMap >> centerPointCanvassOffset [
 { #category : #'view-properties' }
 GtOsmCanvassableMap >> centerTileNumber [
 	^ GtOpenStreetMapTiles new getTileNumberLat: centerCoordinate y long: centerCoordinate x zoom: zoom
-]
-
-{ #category : #'view-properties' }
-GtOsmCanvassableMap >> centerTileOffset [
-	^ centerTileOffset
-]
-
-{ #category : #'view-properties' }
-GtOsmCanvassableMap >> centerTileOffset: aPoint [
-	centerTileOffset := aPoint
 ]
 
 { #category : #'draw-canvas' }
@@ -158,14 +136,14 @@ GtOsmCanvassableMap >> drawEverything [
 	tilesContainer := self buildTilesContainer.
 
 	self
-		enqueueTask: [
-			self addCenterMarker .
-			"self redrawWidgets."
-			self focusViewOnCoordinate: self centerCoordinate.
-			] asBlTask.
+		enqueueTask: [ self addCenterMarker.	"TODO: this should not be enqueued as blTask, but called immediately.
+			For some reason, there is a bug that if canvas was not dragged with mouse after drawEverything, the view will not be translated to proper position..."
+			self translateViewToPx: (self coordinateToPxOnCanvas: centerCoordinate) ]
+				asBlTask.
 
-	widgetsLayer size: (self tilesContainerDimensions x * 256)
-					@ (self tilesContainerDimensions y * 256).
+	widgetsLayer
+		size: (self tilesContainerDimensions x * 256)
+				@ (self tilesContainerDimensions y * 256).
 
 	self
 		size: (self tilesContainerDimensions x * 256)
@@ -175,42 +153,20 @@ GtOsmCanvassableMap >> drawEverything [
 
 	self
 		when: BlDragEndEvent
-		do: [ :evt | 
-			| tileTranslation pxTranslation |
-			tileTranslation := (self tilesContainerCenterPxOffsetFromCanvasCenter
-					+ (128 @ 128)) // 256.
-			pxTranslation := tileTranslation * 256.
-
-			tileTranslation ~= (0 @ 0)
-				ifTrue: [ self scrollTiles: tileTranslation.
-					self
-						childrenTranslationFactor: self childrenTranslationFactor + pxTranslation ] ]
+		do: [ :evt |
+			centerCoordinate := self pxOnCanvasToCoordinate: self viewCenteredAtPx.
+			self focusViewOnCoordinate: centerCoordinate
+		]
 ]
 
 { #category : #'draw-canvas' }
-GtOsmCanvassableMap >> focusViewOnCoordinate: aPoint [
-	| tileNumber osmTiles tileOffset mx my mapOffset resultTransformation canvasSize tilesContainerExtent additionalTilesOffset |
-	osmTiles := GtOpenStreetMapTiles new.
-	tileNumber := self centerTileNumber.
-	tileOffset := osmTiles
-			pixelPointAt: aPoint x @ aPoint y
-			tile: tileNumber
-			zoom: self zoom.
-	mx := self additionalNumberOfTilesAroundCenter * 256.
-	my := self additionalNumberOfTilesAroundCenter * 256.
-
-	additionalTilesOffset := mx @ my.
-
-	canvasSize := self canvasSize.
-	tilesContainerExtent := self tilesContainerPxSize.
-	mapOffset := tilesContainerExtent / 2 - additionalTilesOffset - tileOffset.
-
-	resultTransformation := canvasSize / 2 - (tilesContainerExtent / 2) + mapOffset.
-
-	self childrenTranslationFactor: resultTransformation.
-	
-	Transcript show: 'centerTileOffset: ', (centerTileOffset asString); cr.
-	"self scrollTiles: 0 -centerTileOffset."
+GtOsmCanvassableMap >> focusViewOnCoordinate: aCoordinate [
+	centerCoordinate := aCoordinate.
+	self removeChild: tilesContainer.
+	tilesContainer := self buildTilesContainer.
+	self addChildFirst: tilesContainer.
+	self translateViewToPx: (self coordinateToPxOnCanvas: centerCoordinate).
+	self redrawWidgets.
 ]
 
 { #category : #accessing }
@@ -259,47 +215,34 @@ GtOsmCanvassableMap >> initialize [
 ]
 
 { #category : #'draw-canvas' }
+GtOsmCanvassableMap >> pxOnCanvasToCoordinate: aPoint [
+	"Calculate coordinate position of aPoint on canvas"
+	| osm |
+	osm := GtOpenStreetMapTiles new.
+	Transcript show: 'pxOnCanvasToCoordinate centerTileNumber: ', self centerTileNumber asString; cr.
+	^ osm
+		getCoordinatesForX: self centerTileNumber x
+		y: self centerTileNumber y
+		zoom: zoom
+		pxX: aPoint x - (self additionalNumberOfTilesAroundCenter * 256)
+		pxY: aPoint y - (self additionalNumberOfTilesAroundCenter * 256)
+]
+
+{ #category : #'draw-canvas' }
 GtOsmCanvassableMap >> redrawWidgets [
 	widgetsLayer removeChildren.
-	widgets do: [ :w | | blEl tileNumber osmTiles singleTilePxOffset mx my resultTransformation additionalTilesPxOffset |
-		osmTiles := GtOpenStreetMapTiles new.
-		tileNumber := self centerTileNumber.
-		singleTilePxOffset := osmTiles
-			pixelPointAt: w coordinate
-			tile: tileNumber
-			zoom: self zoom.
-		mx := (self additionalNumberOfTilesAroundCenter - self centerTileOffset x) * 256.
-		my := (self additionalNumberOfTilesAroundCenter - self centerTileOffset y) * 256.
-
-		additionalTilesPxOffset := mx @ my.
-
-		resultTransformation := singleTilePxOffset + additionalTilesPxOffset + w attachPointOffset.
-		
-		blEl := w drawWidget.
-		blEl relocate: resultTransformation - blEl visualBounds origin.
-	
-		widgetsLayer addChild: blEl.
-	].
+	widgets
+		do: [ :w | 
+			| blEl resultTransformation |
+			resultTransformation := self coordinateToPxOnCanvas: w coordinate.
+			blEl := w drawWidget.
+			blEl relocate: resultTransformation - blEl visualBounds origin.
+			widgetsLayer addChild: blEl ]
 ]
 
 { #category : #'draw-canvas' }
 GtOsmCanvassableMap >> removeWidget: aWidget [
 	widgets remove: aWidget
-]
-
-{ #category : #'draw-canvas' }
-GtOsmCanvassableMap >> scrollTiles: aPoint [
-
-	self centerTileOffset: self centerTileOffset + aPoint.
-	self removeChild: tilesContainer.
-	tilesContainer := self buildTilesContainer.
-
-	self
-		size: (self tilesContainerDimensions x * 256) @ (self tilesContainerDimensions y * 256);
-		addChildFirst: tilesContainer.
-
-	"TODO do we need to redrawWidgets? maybe just move them?"
-	self redrawWidgets.
 ]
 
 { #category : #accessing }
@@ -347,9 +290,28 @@ GtOsmCanvassableMap >> topLeftTileNumber [
 	^ GtOpenStreetMapTiles new getTileNumberLat: topLeftCoordinate y long: topLeftCoordinate x zoom: zoom
 ]
 
+{ #category : #'draw-canvas' }
+GtOsmCanvassableMap >> translateViewToPx: aPoint [
+	"Translate the view where the center of inspector live view is at aPoint"
+	
+	"TODO: this should not be enqueued as blTask, but called immediately.
+	For some reason, there is a bug that if canvas was not dragged with mouse after drawEverything, the view will not be translated to proper position..."
+	"self
+		enqueueTask: [
+			self childrenTranslationFactor: self canvasSize / 2 - aPoint.
+			] asBlTask.
+			"
+	self childrenTranslationFactor: self canvasSize / 2 - aPoint.
+]
+
 { #category : #'as yet unclassified' }
 GtOsmCanvassableMap >> updateZoom: aNumber [
 	self zoom: aNumber.
+]
+
+{ #category : #'view-properties' }
+GtOsmCanvassableMap >> viewCenteredAtPx [
+	^ (self canvasSize / 2) - self childrenTranslationFactor.
 ]
 
 { #category : #accessing }
