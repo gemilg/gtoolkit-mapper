@@ -98,7 +98,7 @@ GtOsmCanvassableMap >> canvasSize [
 		@ self parent parent measuredBounds extent y
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 GtOsmCanvassableMap >> centerCoordinate: aCoordinate [
 	centerCoordinate := aCoordinate
 ]
@@ -146,32 +146,18 @@ GtOsmCanvassableMap >> drawEverything [
 			self translateViewToPx: (self coordinateToPxOnCanvas: centerCoordinate) ]
 				asBlTask.
 
-	widgetsLayer
-		size: (self tilesContainerDimensions x * 256)
-				@ (self tilesContainerDimensions y * 256).
-
 	self
 		size: (self tilesContainerDimensions x * 256)
 				@ (self tilesContainerDimensions y * 256);
 		addChildFirst: tilesContainer;
 		addChild: widgetsLayer.
 
-	self
-		when: BlDragEndEvent
-		do: [ :evt |
-			centerCoordinate := self pxOnCanvasToCoordinate: self viewCenteredAtPx.
-			self focusViewOnCoordinate: centerCoordinate
-		]
 ]
 
 { #category : #'draw-canvas' }
 GtOsmCanvassableMap >> focusViewOnCoordinate: aCoordinate [
 	centerCoordinate := aCoordinate.
-	self removeChild: tilesContainer.
-	tilesContainer := self buildTilesContainer.
-	self addChildFirst: tilesContainer.
-	self translateViewToPx: (self coordinateToPxOnCanvas: centerCoordinate).
-	self redrawWidgets.
+	self redrawEverything
 ]
 
 { #category : #accessing }
@@ -207,14 +193,24 @@ GtOsmCanvassableMap >> includeCoordinate: aPoint [
 
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 GtOsmCanvassableMap >> initialize [
 	super initialize.
 	topLeftCoordinate := 1000 @ -1000.
 	bottomRightCoordinate := -1000 @ 1000.
 	tilesContainer := BlElement new.
 	widgetsLayer := BlElement new.
-	widgets := OrderedCollection new
+	widgets := OrderedCollection new.
+
+	widgetsLayer
+		size: (self tilesContainerDimensions x * 256)
+				@ (self tilesContainerDimensions y * 256).
+
+	self
+		when: BlDragEndEvent
+		do: [ :evt | 
+			centerCoordinate := self pxOnCanvasToCoordinate: self viewCenteredAtPx.
+			self focusViewOnCoordinate: centerCoordinate ]
 ]
 
 { #category : #'draw-canvas' }
@@ -229,6 +225,15 @@ GtOsmCanvassableMap >> pxOnCanvasToCoordinate: aPoint [
 		zoom: zoom
 		pxX: aPoint x - (self additionalNumberOfTilesAroundCenter * 256)
 		pxY: aPoint y - (self additionalNumberOfTilesAroundCenter * 256)
+]
+
+{ #category : #'draw-canvas' }
+GtOsmCanvassableMap >> redrawEverything [
+	self removeChild: tilesContainer.
+	tilesContainer := self buildTilesContainer.
+	self addChildFirst: tilesContainer.
+	self translateViewToPx: (self coordinateToPxOnCanvas: centerCoordinate).
+	self redrawWidgets
 ]
 
 { #category : #'draw-canvas' }
@@ -307,11 +312,6 @@ GtOsmCanvassableMap >> translateViewToPx: aPoint [
 	self childrenTranslationFactor: self canvasSize / 2 - aPoint.
 ]
 
-{ #category : #'as yet unclassified' }
-GtOsmCanvassableMap >> updateZoom: aNumber [
-	self zoom: aNumber.
-]
-
 { #category : #'view-properties' }
 GtOsmCanvassableMap >> viewCenteredAtPx [
 	^ (self canvasSize / 2) - self childrenTranslationFactor.
@@ -322,7 +322,19 @@ GtOsmCanvassableMap >> zoom [
 	^ zoom
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 GtOsmCanvassableMap >> zoom: anObject [
 	zoom := anObject
+]
+
+{ #category : #'draw-canvas' }
+GtOsmCanvassableMap >> zoomIn [
+	zoom < 19 ifTrue: [ zoom := zoom + 1 ].
+	self redrawEverything
+]
+
+{ #category : #'draw-canvas' }
+GtOsmCanvassableMap >> zoomOut [
+	(zoom > 0) ifTrue: [zoom := zoom - 1].
+	self redrawEverything
 ]
