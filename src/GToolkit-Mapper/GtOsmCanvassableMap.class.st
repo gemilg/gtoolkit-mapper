@@ -98,6 +98,11 @@ GtOsmCanvassableMap >> canvasSize [
 		@ self parent parent measuredBounds extent y
 ]
 
+{ #category : #'as yet unclassified' }
+GtOsmCanvassableMap >> centerCoordinate: aCoordinate [
+	centerCoordinate := aCoordinate
+]
+
 { #category : #'view-properties' }
 GtOsmCanvassableMap >> centerPointCanvassOffset [
 	^ (self parent bounds extent) / 2.
