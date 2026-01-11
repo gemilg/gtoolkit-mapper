@@ -244,7 +244,7 @@ GtOsmCanvassableMap >> redrawWidgets [
 			| blEl resultTransformation |
 			resultTransformation := self coordinateToPxOnCanvas: w coordinate.
 			blEl := w drawWidget.
-			blEl relocate: resultTransformation - blEl visualBounds origin.
+			blEl relocate: resultTransformation - blEl visualBounds origin + w attachPointOffset.
 			widgetsLayer addChild: blEl ]
 ]
 
