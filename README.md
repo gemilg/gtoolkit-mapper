@@ -8,7 +8,7 @@ You can load the whole code in GT using the following snippet:
 ```smalltalk
 Metacello new
   baseline: 'GToolkitMapperWithoutGT';
-  repository: 'github://feenkcom/gtoolkit-mapper/src';
+  repository: 'github://gemilg/gtoolkit-mapper/src';
   load.
 
 #BaselineOfGToolkitMapperWithoutGT asClass loadLepiter.
