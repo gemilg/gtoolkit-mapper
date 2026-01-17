@@ -15,6 +15,14 @@ GtOpenStreetMapTiles >> cacheDir [
 	^ FileLocator imageDirectory / 'osmTiles'
 ]
 
+{ #category : 'as yet unclassified' }
+GtOpenStreetMapTiles >> emptyTileSkiaImage [
+	| aForm |
+	aForm := Form extent: 256 @ 256 depth: 32.
+	aForm fillColor: Color gray.
+	^ SkiaImage fromForm: aForm
+]
+
 { #category : 'accessing' }
 GtOpenStreetMapTiles >> filenameForTileNumber: point zoom: zoom [
 	<return: #AbstractFileReference>
