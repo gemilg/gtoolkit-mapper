@@ -4,10 +4,33 @@ See https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames for the math.
 Class {
 	#name : 'GtOpenStreetMapTiles',
 	#superclass : 'Object',
+	#instVars : [
+		'tilesCurrentlyDownloading'
+	],
 	#category : 'GToolkit-Mapper-Osm',
 	#package : 'GToolkit-Mapper',
 	#tag : 'Osm'
 }
+
+{ #category : 'as yet unclassified' }
+GtOpenStreetMapTiles >> asyncFilenameForTileNumber: point zoom: zoom [
+	<return: #AbstractFileReference>
+	| tileFilename |
+	tileFilename := self cacheDir
+			/ (zoom asString , '_' , point x asString , '_' , point y asString , '.png').
+	(tileFilename exists or: (tilesCurrentlyDownloading includes: tileFilename))
+		ifFalse: [ | getTilePromise |
+			tilesCurrentlyDownloading add: tileFilename.
+			"Transcript show: 'Downloading: ' , tileFilename asString; cr."
+			getTilePromise := [ PNGReadWriter
+					putForm: (ZnEasy getPng: (self getUrlTileNumber: point zoom: zoom))
+					onFileNamed: tileFilename ] asAsyncPromise.
+			getTilePromise
+				asyncThen: [  
+					tilesCurrentlyDownloading remove: tileFilename.
+					"Transcript show: 'Downloaded: ' , tileFilename asString; cr." ] ].
+	^ tileFilename
+]
 
 { #category : 'accessing' }
 GtOpenStreetMapTiles >> cacheDir [
@@ -137,6 +160,12 @@ GtOpenStreetMapTiles >> initialize [
 
 	super initialize.
 	self cacheDir ensureCreateDirectory.
+	tilesCurrentlyDownloading := {} asSet.
+]
+
+{ #category : 'as yet unclassified' }
+GtOpenStreetMapTiles >> isFileBeingDownloaded: aFile [
+	^ tilesCurrentlyDownloading includes: aFile
 ]
 
 { #category : 'accessing' }
