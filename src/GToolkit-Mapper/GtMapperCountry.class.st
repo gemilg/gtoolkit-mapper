@@ -4,84 +4,86 @@ I represent a country
 
 "
 Class {
-	#name : #GtMapperCountry,
-	#superclass : #BlElement,
+	#name : 'GtMapperCountry',
+	#superclass : 'BlElement',
 	#traits : 'TBrEnableable',
 	#classTraits : 'TBrEnableable classTrait',
 	#instVars : [
 		'countryName'
 	],
-	#category : #'GToolkit-Mapper-Widget - UI - Countries'
+	#category : 'GToolkit-Mapper-Widget - UI - Countries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Countries'
 }
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtMapperCountry class >> countriesNewDo: aBlock [
 	self allSubclassesDo: [ :aClass |
 		aClass isStandaloneCountry ifTrue: [ 
 			aBlock value: aClass new ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtMapperCountry class >> isStandaloneCountry [
 	^ true
 ]
 
-{ #category : #'api - country' }
+{ #category : 'api - country' }
 GtMapperCountry >> countryContinent [
 	<return: #String>
 
 	^ self viewModel properties at: #continent
 ]
 
-{ #category : #'api - country' }
+{ #category : 'api - country' }
 GtMapperCountry >> countryGeometry [
 	<return: #GtMapperGeometry>
 
 	^ self viewModel geometry
 ]
 
-{ #category : #'api - country' }
+{ #category : 'api - country' }
 GtMapperCountry >> countryIsoCode [
 	<return: #String>
 
 	^ self viewModel isoCode
 ]
 
-{ #category : #'api - country' }
+{ #category : 'api - country' }
 GtMapperCountry >> countryName [
 	<return: #String>
 
 	^ self defaultCountryName
 ]
 
-{ #category : #'api - country' }
+{ #category : 'api - country' }
 GtMapperCountry >> countryRegion [
 	<return: #String>
 
 	^ self viewModel properties at: #region_un
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperCountry >> defaultCountryGeometry [
 	^ GtMapperEmptyGeometry new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperCountry >> defaultCountryName [
 	^ 'Country'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperCountry >> defaultCountryProperties [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'api - selection' }
+{ #category : 'api - selection' }
 GtMapperCountry >> deselect [
 	self dispatchEvent: (BrSelectedWish selected: false)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperCountry >> initialize [
 	super initialize.
 	
@@ -96,7 +98,7 @@ GtMapperCountry >> initialize [
 			}))
 ]
 
-{ #category : #'api - selection' }
+{ #category : 'api - selection' }
 GtMapperCountry >> select [
 	self dispatchEvent: (BrSelectedWish selected: true)
 ]

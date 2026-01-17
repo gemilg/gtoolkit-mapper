@@ -4,12 +4,14 @@ I represent a multipoligonal geometry of an area on the map, for example a count
 
 "
 Class {
-	#name : #GtMapperGeometry,
-	#superclass : #Object,
-	#category : #'GToolkit-Mapper-Geometries'
+	#name : 'GtMapperGeometry',
+	#superclass : 'Object',
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperGeometry >> asBlocGeometry [
 	<return: #BlElementGeometry>
 

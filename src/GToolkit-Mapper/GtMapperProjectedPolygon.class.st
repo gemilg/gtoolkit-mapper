@@ -1,25 +1,27 @@
 Class {
-	#name : #GtMapperProjectedPolygon,
-	#superclass : #GtMapperProjectedGeometry,
+	#name : 'GtMapperProjectedPolygon',
+	#superclass : 'GtMapperProjectedGeometry',
 	#instVars : [
 		'projectedPoints'
 	],
-	#category : #'GToolkit-Mapper-Geometries'
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPolygon >> asBlocGeometry [
 	<return: #BlElementGeometry>
 
 	^ BlPolygon vertices: (self translatedBy: self topLeft negated) asPoints
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPolygon >> asPoints [
 	^ self projectedPoints collect: #asPoint
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedPolygon >> bottomRight [
 	<return: #Point>
 	| x y |
@@ -35,7 +37,7 @@ GtMapperProjectedPolygon >> bottomRight [
 	^ x @ y
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtMapperProjectedPolygon >> gtPointsIn: aView [
 	<gtView>
 	
@@ -45,24 +47,24 @@ GtMapperProjectedPolygon >> gtPointsIn: aView [
 		items: [ self projectedPoints ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperProjectedPolygon >> initialize [
 	super initialize.
 	
 	projectedPoints := #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPolygon >> projectedPoints [
 	^ projectedPoints
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPolygon >> projectedPoints: anObject [
 	projectedPoints := anObject
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedPolygon >> topLeft [
 	<return: #Point>
 	| x y |
@@ -78,7 +80,7 @@ GtMapperProjectedPolygon >> topLeft [
 	^ x @ y
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPolygon >> translatedBy: aPoint [
 	^ self class new 
 		projectedPoints: (self projectedPoints collect: [ :eachPoint | 

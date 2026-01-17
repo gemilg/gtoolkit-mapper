@@ -1,31 +1,33 @@
 Class {
-	#name : #GtOsmPath2,
-	#superclass : #GtOsmWidget,
+	#name : 'GtOsmPath2',
+	#superclass : 'GtOsmWidget',
 	#instVars : [
 		'coordinates'
 	],
-	#category : #'GToolkit-Mapper-Osm'
+	#category : 'GToolkit-Mapper-Osm',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Osm'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtOsmPath2 >> attachPointOffset [
 	^ (-1)@(-1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmPath2 >> coordinates [
 	<return: #Array of: #Point>
 
 	^ coordinates
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmPath2 >> coordinates: anObject [
 	coordinates := anObject.
 	coordinate := coordinates at: 1.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtOsmPath2 >> drawWidget [
 	| mapPoints |
 	mapPoints := coordinates collect: [ :each |

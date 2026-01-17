@@ -1,41 +1,43 @@
 Class {
-	#name : #GtMapperGeographicalObjectModel,
-	#superclass : #BrWidgetModel,
+	#name : 'GtMapperGeographicalObjectModel',
+	#superclass : 'BrWidgetModel',
 	#instVars : [
 		'geometry',
 		'properties'
 	],
-	#category : #'GToolkit-Mapper-Widget - Model'
+	#category : 'GToolkit-Mapper-Widget - Model',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperGeographicalObjectModel >> geometry [
 	<return: #GtMapperGeometry>
 
 	^ geometry
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperGeographicalObjectModel >> geometry: aGtMapperGeometry [
 	geometry := aGtMapperGeometry.
 	self notifyGeometryChanged: aGtMapperGeometry
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperGeographicalObjectModel >> initialize [
 	super initialize.
 	
 	geometry := GtMapperEmptyGeometry new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperGeographicalObjectModel >> initializeListeners [
 	super initializeListeners.
 	
 	self when: GtMapperObjectGeometryRequest reply: [ :aResponse | aResponse geometry: self geometry ]
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtMapperGeographicalObjectModel >> notifyGeometryChanged: aGtMapperGeometry [
 	self dispatchEvent: (GtMapperObjectGeometryChanged new geometry: aGtMapperGeometry)
 ]

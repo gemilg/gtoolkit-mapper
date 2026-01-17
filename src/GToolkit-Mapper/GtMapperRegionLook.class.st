@@ -1,10 +1,12 @@
 Class {
-	#name : #GtMapperRegionLook,
-	#superclass : #GtMapperGeographicalObjectLook,
-	#category : #'GToolkit-Mapper-Widget - Look'
+	#name : 'GtMapperRegionLook',
+	#superclass : 'GtMapperGeographicalObjectLook',
+	#category : 'GToolkit-Mapper-Widget - Look',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Look'
 }
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 GtMapperRegionLook >> onProjectedGeometryChanged: aProjectedGeometry widget: aWidget [
 	aWidget
 		geometry: aProjectedGeometry asBlocGeometry;

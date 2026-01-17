@@ -2,28 +2,30 @@
 GtOsmGpxTrack provides a simple wrapper around a GPX file (as produced by OsmAnd on iOS) to display the track.
 "
 Class {
-	#name : #GtOsmGpxTrack,
-	#superclass : #Object,
+	#name : 'GtOsmGpxTrack',
+	#superclass : 'Object',
 	#instVars : [
 		'filename',
 		'points'
 	],
-	#category : #'GToolkit-Mapper-osm'
+	#category : 'GToolkit-Mapper-osm',
+	#package : 'GToolkit-Mapper',
+	#tag : 'osm'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtOsmGpxTrack class >> filename: aFileReference [
 
 	^ self new filename: aFileReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmGpxTrack >> filename: aFileReference [
 
 	filename := aFileReference.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmGpxTrack >> getPoints [
 	"Answer an Array of timestamp (String) -> coordinate (Point)"
 	| dom segments |
@@ -39,7 +41,7 @@ GtOsmGpxTrack >> getPoints [
 				asArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmGpxTrack >> gtMapViewFor: aView [
 	<gtView>
 
@@ -49,7 +51,7 @@ GtOsmGpxTrack >> gtMapViewFor: aView [
 		stencil: [ self map ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmGpxTrack >> gtPointsFor: aView [
 	<gtView>
 
@@ -59,7 +61,7 @@ GtOsmGpxTrack >> gtPointsFor: aView [
 		items: [ self points ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmGpxTrack >> map [
 	| map path |
 
@@ -71,7 +73,7 @@ GtOsmGpxTrack >> map [
 	^ map asScalableElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmGpxTrack >> points [
 
 	^ points ifNil: [ points := self getPoints ].

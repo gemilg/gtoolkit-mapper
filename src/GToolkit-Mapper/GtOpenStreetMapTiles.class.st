@@ -2,18 +2,20 @@
 See https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames for the math.
 "
 Class {
-	#name : #GtOpenStreetMapTiles,
-	#superclass : #Object,
-	#category : #'GToolkit-Mapper-Osm'
+	#name : 'GtOpenStreetMapTiles',
+	#superclass : 'Object',
+	#category : 'GToolkit-Mapper-Osm',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Osm'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> cacheDir [
 
 	^ FileLocator imageDirectory / 'osmTiles'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> filenameForTileNumber: point zoom: zoom [
 	<return: #AbstractFileReference>
 	| tileFilename |
@@ -24,7 +26,7 @@ GtOpenStreetMapTiles >> filenameForTileNumber: point zoom: zoom [
 	^ tileFilename
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> getCoordinatesForX: xTile y: yTile zoom: zoom [
 	"Answer longitude @ latitude degrees"
 	<return: #Point>
@@ -37,7 +39,7 @@ GtOpenStreetMapTiles >> getCoordinatesForX: xTile y: yTile zoom: zoom [
 	^ longDeg @ latDeg
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> getCoordinatesForX: xTile y: yTile zoom: zoom pxX: pxX pxY: pxY [
 	"Answer longitude @ latitude degrees.
 	This method also takes into account the px offset."
@@ -54,7 +56,7 @@ GtOpenStreetMapTiles >> getCoordinatesForX: xTile y: yTile zoom: zoom pxX: pxX p
 	^ longDeg @ latDeg
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> getTileLat: latDeg long: longDeg zoom: zoom [
 	<return: #AbstractFileReference>
 	| point tileFilename |
@@ -66,7 +68,7 @@ GtOpenStreetMapTiles >> getTileLat: latDeg long: longDeg zoom: zoom [
 	^ tileFilename
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> getTileNumberLat: latDeg long: longDeg zoom: zoom [
 	<return: #Point>
 	| latRad n x y |
@@ -78,7 +80,7 @@ GtOpenStreetMapTiles >> getTileNumberLat: latDeg long: longDeg zoom: zoom [
 	^ x @ y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> getUrlLat: latDeg long: longDeg zoom: zoom [
 	<return: #String>
 	| point |
@@ -87,14 +89,14 @@ GtOpenStreetMapTiles >> getUrlLat: latDeg long: longDeg zoom: zoom [
 	^ self getUrlTileNumber: point zoom: zoom.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> getUrlTileNumber: point zoom: zoom [
 	<return: #String>
 
 	^ 'https://tile.openstreetmap.de/', zoom asString, '/', point x asString, '/', point y asString, '.png'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> hotelLocationLyon [
 	<gtExample>
 	| file image tileNumber offset wrapper marker |
@@ -122,20 +124,20 @@ GtOpenStreetMapTiles >> hotelLocationLyon [
 	.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtOpenStreetMapTiles >> initialize [
 
 	super initialize.
 	self cacheDir ensureCreateDirectory.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> maxLatitude [
 
 	^ 85.0511287798
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> pixelPointAt: targetCoordinates tile: tileNumber zoom: zoom [
 	| topLeftCoordinates bottomRightCoordinates x y |
 
@@ -146,7 +148,7 @@ GtOpenStreetMapTiles >> pixelPointAt: targetCoordinates tile: tileNumber zoom: z
 	^ x @ y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> resolutionForZoom: zoom [
 	"Answer the image resolution in m/px for the supplied zoom level"
 
@@ -173,7 +175,7 @@ GtOpenStreetMapTiles >> resolutionForZoom: zoom [
 	} at: zoom
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTiles >> tileWithMarkerAt: coordinatesPoint zoom: zoom [
 	<gtExample>
 	| file image tileNumber offset wrapper marker |

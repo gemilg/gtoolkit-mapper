@@ -1,23 +1,25 @@
 Class {
-	#name : #GtMapperLuxembourg,
-	#superclass : #GtMapperCountry,
-	#category : #'GToolkit-Mapper-Widget - UI - Countries'
+	#name : 'GtMapperLuxembourg',
+	#superclass : 'GtMapperCountry',
+	#category : 'GToolkit-Mapper-Widget - UI - Countries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Countries'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperLuxembourg >> defaultCountryGeometry [
 	<script: 'self basicNew defaultCountryGeometry inspect'>
 	"I am automatically generated from GeoJSON"
 	^ GtMapperGeoJSONPolygon from: #(#(#(6.043073357781111 50.128051662794235) #(6.242751092156993 49.90222565367873) #(6.186320428094177 49.463802802114515) #(5.897759230176405 49.44266714130703) #(5.674051954784829 49.529483547557504) #(5.782417433300906 50.09032786722122) #(6.043073357781111 50.128051662794235)))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperLuxembourg >> defaultCountryName [
 	"I am automatically generated from GeoJSON"
 	^ 'Luxembourg'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperLuxembourg >> defaultCountryProperties [
 	<script: 'self basicNew defaultCountryProperties inspect'>
 	"I am automatically generated from GeoJSON"

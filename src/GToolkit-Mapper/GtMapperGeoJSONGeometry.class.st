@@ -4,26 +4,28 @@ All my subclasses live in geo-coordinates: (longitude, latitude)
 
 "
 Class {
-	#name : #GtMapperGeoJSONGeometry,
-	#superclass : #GtMapperGeometry,
-	#category : #'GToolkit-Mapper-Geometries'
+	#name : 'GtMapperGeoJSONGeometry',
+	#superclass : 'GtMapperGeometry',
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperGeoJSONGeometry >> asBlocGeometry [
 	<return: #BlElementGeometry>
 
 	^ self shouldNotImplement
 ]
 
-{ #category : #'api - geometry' }
+{ #category : 'api - geometry' }
 GtMapperGeoJSONGeometry >> center [
 	<return: #GtMapperSpherePoint>
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtMapperGeoJSONGeometry >> gtProjectFor: anAction [
 	<gtAction>
 	^ anAction explicit
@@ -38,11 +40,11 @@ GtMapperGeoJSONGeometry >> gtProjectFor: anAction [
 								sourceElement: button) ] ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtMapperGeoJSONGeometry >> polygonsDo: aBlock [
 ]
 
-{ #category : #'api - projection' }
+{ #category : 'api - projection' }
 GtMapperGeoJSONGeometry >> projected: aProjection [
 	"Return a projected version of GeoJSON geometry by applying a given projection"
 	

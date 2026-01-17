@@ -1,10 +1,12 @@
 Class {
-	#name : #GtMapperWorldCenterRequest,
-	#superclass : #BrRequest,
-	#category : #'GToolkit-Mapper-Widget - Events'
+	#name : 'GtMapperWorldCenterRequest',
+	#superclass : 'BrRequest',
+	#category : 'GToolkit-Mapper-Widget - Events',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Events'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperWorldCenterRequest >> responseClass [
 	^ GtMapperWorldCenterChanged
 ]

@@ -1,31 +1,33 @@
 Class {
-	#name : #GtMapperProjectedEmptyGeometry,
-	#superclass : #GtMapperProjectedGeometry,
-	#category : #'GToolkit-Mapper-Geometries'
+	#name : 'GtMapperProjectedEmptyGeometry',
+	#superclass : 'GtMapperProjectedGeometry',
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedEmptyGeometry >> asBlocGeometry [
 	<return: #BlElementGeometry>
 
 	^ BlRectangle new
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedEmptyGeometry >> bottomRight [
 	<return: #Point>
 	
 	^ 0@0
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedEmptyGeometry >> topLeft [
 	<return: #Point>
 
 	^ 0@0
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedEmptyGeometry >> translatedBy: aPoint [
 	^ self class new
 ]

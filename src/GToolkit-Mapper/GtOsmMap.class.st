@@ -8,17 +8,19 @@ GtOsmMap new
 
 "
 Class {
-	#name : #GtOsmMap,
-	#superclass : #BlElement,
+	#name : 'GtOsmMap',
+	#superclass : 'BlElement',
 	#instVars : [
 		'topLeftCoordinate',
 		'bottomRightCoordinate',
 		'zoom'
 	],
-	#category : #'GToolkit-Mapper-Osm'
+	#category : 'GToolkit-Mapper-Osm',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Osm'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> addChildren [
 	| tilesContainer tileDimensions topLeftNumber osm rowContainer |
 
@@ -46,23 +48,23 @@ GtOsmMap >> addChildren [
 		addChild: tilesContainer.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> bottomRightCoordinate [
 	^ bottomRightCoordinate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> bottomRightCoordinate: aNumber [
 	bottomRightCoordinate := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> bottomRightTileNumber [
 
 	^ GtOpenStreetMapTiles new getTileNumberLat: bottomRightCoordinate y long: bottomRightCoordinate x zoom: zoom
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> gtSummaryFor: aView [
 	<gtView>
 	
@@ -81,7 +83,7 @@ GtOsmMap >> gtSummaryFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> includeCoordinate: aPoint [
 
 	aPoint x < topLeftCoordinate x ifTrue:
@@ -95,7 +97,7 @@ GtOsmMap >> includeCoordinate: aPoint [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> initialize [
 
 	super initialize.
@@ -103,7 +105,7 @@ GtOsmMap >> initialize [
 	bottomRightCoordinate := -1000 @ 1000.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> tilesContainerDimensions [
 	| topLeftTileNumber bottomRightTileNumber |
 	
@@ -114,28 +116,28 @@ GtOsmMap >> tilesContainerDimensions [
 		((topLeftTileNumber y - bottomRightTileNumber y) abs + 1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> topLeftCoordinate [
 	^ topLeftCoordinate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> topLeftCoordinate: aNumber [
 	topLeftCoordinate := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> topLeftTileNumber [
 
 	^ GtOpenStreetMapTiles new getTileNumberLat: topLeftCoordinate y long: topLeftCoordinate x zoom: zoom
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> zoom [
 	^ zoom
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmMap >> zoom: anObject [
 	zoom := anObject
 ]

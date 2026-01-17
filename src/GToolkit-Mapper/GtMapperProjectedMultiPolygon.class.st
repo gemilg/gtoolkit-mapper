@@ -1,25 +1,27 @@
 Class {
-	#name : #GtMapperProjectedMultiPolygon,
-	#superclass : #GtMapperProjectedGeometry,
+	#name : 'GtMapperProjectedMultiPolygon',
+	#superclass : 'GtMapperProjectedGeometry',
 	#instVars : [
 		'projectedPolygons'
 	],
-	#category : #'GToolkit-Mapper-Geometries'
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedMultiPolygon >> asBlocGeometry [
 	<return: #BlElementGeometry>
 
 	^ BlMultiPolygon polygons: (self translatedBy: self topLeft negated) asPoints
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedMultiPolygon >> asPoints [
 	^ self projectedPolygons collect: #asPoints
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedMultiPolygon >> bottomRight [
 	<return: #Point>
 
@@ -31,17 +33,17 @@ GtMapperProjectedMultiPolygon >> bottomRight [
 				into: [ :max :each | max max: each bottomRight ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedMultiPolygon >> projectedPolygons [
 	^ projectedPolygons
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedMultiPolygon >> projectedPolygons: anObject [
 	projectedPolygons := anObject
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedMultiPolygon >> topLeft [
 	<return: #Point>
 
@@ -53,7 +55,7 @@ GtMapperProjectedMultiPolygon >> topLeft [
 				into: [ :min :each | min min: each topLeft ] ]
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedMultiPolygon >> translatedBy: aPoint [
 	^ self class new projectedPolygons: (self projectedPolygons collect: [ :eachPolygon | eachPolygon translatedBy: aPoint ])
 ]

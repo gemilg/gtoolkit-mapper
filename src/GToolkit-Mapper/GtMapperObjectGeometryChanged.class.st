@@ -1,18 +1,20 @@
 Class {
-	#name : #GtMapperObjectGeometryChanged,
-	#superclass : #BrChangeEvent,
+	#name : 'GtMapperObjectGeometryChanged',
+	#superclass : 'BrChangeEvent',
 	#instVars : [
 		'geometry'
 	],
-	#category : #'GToolkit-Mapper-Widget - Events'
+	#category : 'GToolkit-Mapper-Widget - Events',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperObjectGeometryChanged >> geometry [
 	^ geometry
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperObjectGeometryChanged >> geometry: anObject [
 	geometry := anObject
 ]

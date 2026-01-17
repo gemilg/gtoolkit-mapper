@@ -1,35 +1,37 @@
 Class {
-	#name : #GtMapperRegion,
-	#superclass : #BlElement,
-	#category : #'GToolkit-Mapper-Widget - UI - Region'
+	#name : 'GtMapperRegion',
+	#superclass : 'BlElement',
+	#category : 'GToolkit-Mapper-Widget - UI - Region',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Region'
 }
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtMapperRegion >> addGeographicalObject: aGeographicalObjectElement [
 	self viewModel addGeographicalObject: aGeographicalObjectElement viewModel
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtMapperRegion >> addGeographicalObjects: aCollectionOfGeographicalObjectElements [
 	self viewModel addGeographicalObjects: (aCollectionOfGeographicalObjectElements collect: [ :each | each viewModel ])
 ]
 
-{ #category : #'api - selection' }
+{ #category : 'api - selection' }
 GtMapperRegion >> deselect [
 	self dispatchEvent: (BrSelectedWish selected: false)
 ]
 
-{ #category : #'api - activation' }
+{ #category : 'api - activation' }
 GtMapperRegion >> disable [
 	self dispatchEvent:((BrEnablementWish enabled: false))
 ]
 
-{ #category : #'api - activation' }
+{ #category : 'api - activation' }
 GtMapperRegion >> enable [
 	self dispatchEvent: ((BrEnablementWish enabled: true))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperRegion >> initialize [
 	super initialize.
 
@@ -41,17 +43,17 @@ GtMapperRegion >> initialize [
 	}))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtMapperRegion >> isDisabled [	
 	^ self isEnabled not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtMapperRegion >> isEnabled [ 	
 	^ (self viewModel request: BrEnablementRequest oneWay) isEnabled
 ]
 
-{ #category : #'api - selection' }
+{ #category : 'api - selection' }
 GtMapperRegion >> select [
 	self dispatchEvent: (BrSelectedWish selected: true)
 ]

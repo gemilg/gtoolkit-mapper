@@ -1,10 +1,12 @@
 Class {
-	#name : #GtMapperWorldZoomRequest,
-	#superclass : #BrRequest,
-	#category : #'GToolkit-Mapper-Widget - Events'
+	#name : 'GtMapperWorldZoomRequest',
+	#superclass : 'BrRequest',
+	#category : 'GToolkit-Mapper-Widget - Events',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Events'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperWorldZoomRequest >> responseClass [
 	^ GtMapperWorldZoomChanged
 ]

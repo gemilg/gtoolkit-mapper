@@ -4,12 +4,14 @@ I load a GeoJSon and generate country classes out of it
 
 "
 Class {
-	#name : #GtMapperLoader,
-	#superclass : #Object,
-	#category : #'GToolkit-Mapper-Utilities'
+	#name : 'GtMapperLoader',
+	#superclass : 'Object',
+	#category : 'GToolkit-Mapper-Utilities',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Utilities'
 }
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 GtMapperLoader class >> generateCountry: aCountryJSON [
 	| aCountryClass |
 
@@ -23,7 +25,7 @@ GtMapperLoader class >> generateCountry: aCountryJSON [
 		ifPresent: [ :aGeometryJSON | self generateGeometry: aGeometryJSON for: aCountryClass ]
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 GtMapperLoader class >> generateCountryClass: aCountryName [
 	<return: #Class>
 	| aCountryClassName |
@@ -44,7 +46,7 @@ GtMapperLoader class >> generateCountryClass: aCountryName [
 		ifAbsent: [ self error: ('Country class {1} does not exist' format: { aCountryClassName }) ].
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 GtMapperLoader class >> generateFrom: aGeoJSONFileName [
 	| aGeoJSON |
 	
@@ -52,7 +54,7 @@ GtMapperLoader class >> generateFrom: aGeoJSONFileName [
 	(aGeoJSON at: 'features') do: [ :eachCountry | self generateCountry: eachCountry ]
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 GtMapperLoader class >> generateGeometry: aGeometryJSON for: aMapperClass [
 	| aType aGeometryTypeClass theCoordinates aSourceCode |
 	
@@ -76,7 +78,7 @@ GtMapperLoader class >> generateGeometry: aGeometryJSON for: aMapperClass [
 		classified: 'initialization'
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 GtMapperLoader class >> generateName: aPropertiesJSON for: aMapperClass [
 	| aSourceCode aName anEscapedName |
 
@@ -92,7 +94,7 @@ GtMapperLoader class >> generateName: aPropertiesJSON for: aMapperClass [
 		classified: 'initialization'
 ]
 
-{ #category : #'code generation' }
+{ #category : 'code generation' }
 GtMapperLoader class >> generateProperties: aPropertiesJSON for: aMapperClass [
 	| theProperties aSourceCode |
 	

@@ -1,10 +1,12 @@
 Class {
-	#name : #GtOpenStreetMapTilesExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Mapper-Osm'
+	#name : 'GtOpenStreetMapTilesExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Mapper-Osm',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Osm'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTilesExamples >> hotelLocationLyon [
 	<gtExample>
 	| file image tileNumber offset wrapper marker |
@@ -32,7 +34,7 @@ GtOpenStreetMapTilesExamples >> hotelLocationLyon [
 	.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTilesExamples >> tileCoordinatesLyon [
 	<gtExample>
 	| tileCoordinates |
@@ -43,7 +45,7 @@ GtOpenStreetMapTilesExamples >> tileCoordinatesLyon [
 	^ tileCoordinates.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTilesExamples >> tileFileLyon [
 	<gtExample>
 	| tile |
@@ -55,7 +57,7 @@ GtOpenStreetMapTilesExamples >> tileFileLyon [
 	^ tile
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTilesExamples >> tileNumberLyon [
 	<gtExample>
 	| tile |
@@ -67,7 +69,7 @@ GtOpenStreetMapTilesExamples >> tileNumberLyon [
 	^ tile.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOpenStreetMapTilesExamples >> tileUrlLyon [
 	<gtExample>
 	| tile |

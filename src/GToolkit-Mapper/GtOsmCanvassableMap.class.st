@@ -1,6 +1,6 @@
 Class {
-	#name : #GtOsmCanvassableMap,
-	#superclass : #BlCanvassableElement,
+	#name : 'GtOsmCanvassableMap',
+	#superclass : 'BlCanvassableElement',
 	#instVars : [
 		'topLeftCoordinate',
 		'bottomRightCoordinate',
@@ -8,12 +8,15 @@ Class {
 		'centerCoordinate',
 		'tilesContainer',
 		'widgets',
-		'widgetsLayer'
+		'widgetsLayer',
+		'osm'
 	],
-	#category : #'GToolkit-Mapper-Osm'
+	#category : 'GToolkit-Mapper-Osm',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Osm'
 }
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> addCenterMarker [
 	| marker horizontal vertical |
 	horizontal := BlElement new
@@ -30,39 +33,38 @@ GtOsmCanvassableMap >> addCenterMarker [
 	self parent addChild: marker
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> addWidget: aWidget [
 	widgets add: aWidget
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> additionalNumberOfTilesAroundCenter [
 	"This is the default value of number of tiles above/below/left/right the center tile"
 	^ 3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> bottomRightCoordinate [
 	^ bottomRightCoordinate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> bottomRightCoordinate: aNumber [
 	bottomRightCoordinate := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> bottomRightTileNumber [
 
-	^ GtOpenStreetMapTiles new getTileNumberLat: bottomRightCoordinate y long: bottomRightCoordinate x zoom: zoom
+	^ osm getTileNumberLat: bottomRightCoordinate y long: bottomRightCoordinate x zoom: zoom
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> buildTilesContainer [
-	| osm tileDimensions rowContainer centerNumber tiles |
+	| tileDimensions rowContainer centerNumber tiles |
 	tileDimensions := self tilesContainerDimensions.
 	centerNumber := self centerTileNumber.
-	osm := GtOpenStreetMapTiles new.
 	tiles := BlElement new
 			size: (tileDimensions x * 256) @ (tileDimensions y * 256);
 			layout: BlGridLayout vertical.
@@ -90,7 +92,7 @@ GtOsmCanvassableMap >> buildTilesContainer [
 	^ tiles
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> canvasSize [
 	"Return the size in px, of canvas in which the GtOsmCanvassableMap is displayed.
 	Most likely, this is the size of inspector canvas."
@@ -98,37 +100,36 @@ GtOsmCanvassableMap >> canvasSize [
 		@ self parent parent measuredBounds extent y
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtOsmCanvassableMap >> centerCoordinate: aCoordinate [
 	centerCoordinate := aCoordinate
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> centerPointCanvassOffset [
 	^ (self parent bounds extent) / 2.
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> centerTileNumber [
-	^ GtOpenStreetMapTiles new getTileNumberLat: centerCoordinate y long: centerCoordinate x zoom: zoom
+	^ osm getTileNumberLat: centerCoordinate y long: centerCoordinate x zoom: zoom
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> coordinateToPxOnCanvas: aCoordinate [
 	"Calculate px position of aCoordinate on canvas, where 0@0 is the top left corner of center tile in tilesContainer.
 	Calculated px position can point to outside of canvas."
-	| osmTiles tileNumber centerTilePxOffset centerTileNumber |
-	osmTiles := GtOpenStreetMapTiles new.
+	| tileNumber centerTilePxOffset centerTileNumber |
 	
-	centerTileNumber := osmTiles
+	centerTileNumber := osm
 			getTileNumberLat: centerCoordinate y
 			long: centerCoordinate x
 			zoom: self zoom.
-	tileNumber := osmTiles
+	tileNumber := osm
 			getTileNumberLat: aCoordinate y
 			long: aCoordinate x
 			zoom: self zoom.
-	centerTilePxOffset := osmTiles
+	centerTilePxOffset := osm
 			pixelPointAt: aCoordinate
 			tile: tileNumber
 			zoom: self zoom.
@@ -136,7 +137,7 @@ GtOsmCanvassableMap >> coordinateToPxOnCanvas: aCoordinate [
 	^ centerTilePxOffset + ((tileNumber - centerTileNumber) * 256) + (self additionalNumberOfTilesAroundCenter * 256)
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> drawEverything [
 	tilesContainer := self buildTilesContainer.
 
@@ -154,13 +155,13 @@ GtOsmCanvassableMap >> drawEverything [
 
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> focusViewOnCoordinate: aCoordinate [
 	centerCoordinate := aCoordinate.
 	self redrawEverything
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> gtSummaryFor: aView [
 	<gtView>
 	
@@ -179,7 +180,7 @@ GtOsmCanvassableMap >> gtSummaryFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> includeCoordinate: aPoint [
 
 	aPoint x < topLeftCoordinate x ifTrue:
@@ -193,9 +194,10 @@ GtOsmCanvassableMap >> includeCoordinate: aPoint [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtOsmCanvassableMap >> initialize [
 	super initialize.
+	osm := GtOpenStreetMapTiles new.
 	topLeftCoordinate := 1000 @ -1000.
 	bottomRightCoordinate := -1000 @ 1000.
 	tilesContainer := BlElement new.
@@ -213,11 +215,10 @@ GtOsmCanvassableMap >> initialize [
 			self focusViewOnCoordinate: centerCoordinate ]
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> pxOnCanvasToCoordinate: aPoint [
 	"Calculate coordinate position of aPoint on canvas"
-	| osm |
-	osm := GtOpenStreetMapTiles new.
+
 	Transcript show: 'pxOnCanvasToCoordinate centerTileNumber: ', self centerTileNumber asString; cr.
 	^ osm
 		getCoordinatesForX: self centerTileNumber x
@@ -227,7 +228,7 @@ GtOsmCanvassableMap >> pxOnCanvasToCoordinate: aPoint [
 		pxY: aPoint y - (self additionalNumberOfTilesAroundCenter * 256)
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> redrawEverything [
 	self removeChild: tilesContainer.
 	tilesContainer := self buildTilesContainer.
@@ -236,7 +237,7 @@ GtOsmCanvassableMap >> redrawEverything [
 	self redrawWidgets
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> redrawWidgets [
 	widgetsLayer removeChildren.
 	widgets
@@ -248,57 +249,57 @@ GtOsmCanvassableMap >> redrawWidgets [
 			widgetsLayer addChild: blEl ]
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> removeWidget: aWidget [
 	widgets remove: aWidget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> tilesContainer [
 	^ tilesContainer
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> tilesContainerCenterPxOffsetFromCanvasCenter [
 ^ ((self canvasSize / 2) - (self tilesContainerPxSize / 2) - self childrenTranslationFactor)
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> tilesContainerDimensions [
 	| dim |
 	dim := self additionalNumberOfTilesAroundCenter * 2 + 1.
 	^ dim@dim
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> tilesContainerPxSize [
 	| px |
 	px := 256 * (self additionalNumberOfTilesAroundCenter * 2 + 1).
 	^ px@px
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> tilesExtent [
 	^ self measuredBounds extent x @ self measuredBounds extent y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> topLeftCoordinate [
 	^ topLeftCoordinate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> topLeftCoordinate: aNumber [
 	topLeftCoordinate := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> topLeftTileNumber [
 
-	^ GtOpenStreetMapTiles new getTileNumberLat: topLeftCoordinate y long: topLeftCoordinate x zoom: zoom
+	^ osm getTileNumberLat: topLeftCoordinate y long: topLeftCoordinate x zoom: zoom
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> translateViewToPx: aPoint [
 	"Translate the view where the center of inspector live view is at aPoint"
 	
@@ -312,28 +313,28 @@ GtOsmCanvassableMap >> translateViewToPx: aPoint [
 	self childrenTranslationFactor: self canvasSize / 2 - aPoint.
 ]
 
-{ #category : #'view-properties' }
+{ #category : 'view-properties' }
 GtOsmCanvassableMap >> viewCenteredAtPx [
 	^ (self canvasSize / 2) - self childrenTranslationFactor.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmCanvassableMap >> zoom [
 	^ zoom
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtOsmCanvassableMap >> zoom: anObject [
 	zoom := anObject
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> zoomIn [
 	zoom < 19 ifTrue: [ zoom := zoom + 1 ].
 	self redrawEverything
 ]
 
-{ #category : #'draw-canvas' }
+{ #category : 'draw-canvas' }
 GtOsmCanvassableMap >> zoomOut [
 	(zoom > 0) ifTrue: [zoom := zoom - 1].
 	self redrawEverything

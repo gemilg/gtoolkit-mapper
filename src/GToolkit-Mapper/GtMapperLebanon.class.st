@@ -1,23 +1,25 @@
 Class {
-	#name : #GtMapperLebanon,
-	#superclass : #GtMapperCountry,
-	#category : #'GToolkit-Mapper-Widget - UI - Countries'
+	#name : 'GtMapperLebanon',
+	#superclass : 'GtMapperCountry',
+	#category : 'GToolkit-Mapper-Widget - UI - Countries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Countries'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperLebanon >> defaultCountryGeometry [
 	<script: 'self basicNew defaultCountryGeometry inspect'>
 	"I am automatically generated from GeoJSON"
 	^ GtMapperGeoJSONPolygon from: #(#(#(35.82110070165024 33.2774264592763) #(35.55279666519081 33.26427480725802) #(35.460709262846706 33.08904002535628) #(35.126052687324545 33.09090037691878) #(35.48220665868013 33.90545014091944) #(35.9795923194894 34.61005829521913) #(35.99840254084364 34.644914048800004) #(36.4481942075121 34.59393524834407) #(36.61175011571589 34.201788641897174) #(36.066460402172055 33.82491242119255) #(35.82110070165024 33.2774264592763)))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperLebanon >> defaultCountryName [
 	"I am automatically generated from GeoJSON"
 	^ 'Lebanon'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperLebanon >> defaultCountryProperties [
 	<script: 'self basicNew defaultCountryProperties inspect'>
 	"I am automatically generated from GeoJSON"

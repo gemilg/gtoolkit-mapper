@@ -1,18 +1,20 @@
 Class {
-	#name : #GtMapperWorldScaleChanged,
-	#superclass : #BrChangeEvent,
+	#name : 'GtMapperWorldScaleChanged',
+	#superclass : 'BrChangeEvent',
 	#instVars : [
 		'scale'
 	],
-	#category : #'GToolkit-Mapper-Widget - Events'
+	#category : 'GToolkit-Mapper-Widget - Events',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldScaleChanged >> scale [
 	^ scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldScaleChanged >> scale: anObject [
 	scale := anObject
 ]

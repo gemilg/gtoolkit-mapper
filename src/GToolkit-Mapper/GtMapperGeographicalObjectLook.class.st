@@ -1,22 +1,24 @@
 Class {
-	#name : #GtMapperGeographicalObjectLook,
-	#superclass : #BrInteractiveCommonAptitude,
+	#name : 'GtMapperGeographicalObjectLook',
+	#superclass : 'BrInteractiveCommonAptitude',
 	#instVars : [
 		'scale',
 		'center',
 		'geometry',
 		'zoom'
 	],
-	#category : #'GToolkit-Mapper-Widget - Look'
+	#category : 'GToolkit-Mapper-Widget - Look',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Look'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtMapperGeographicalObjectLook >> center: aGtMapperSpherePoint [
 	center := aGtMapperSpherePoint.
 	self updateGeometry: geometry
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperGeographicalObjectLook >> initialize [
 	super initialize.
 	
@@ -26,7 +28,7 @@ GtMapperGeographicalObjectLook >> initialize [
 	geometry := GtMapperGeoJSONPoint new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperGeographicalObjectLook >> initializeListeners [
 	super initializeListeners.
 	
@@ -36,7 +38,7 @@ GtMapperGeographicalObjectLook >> initializeListeners [
 	self when: GtMapperWorldCenterChanged do: [ :anEvent | self center: anEvent center ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperGeographicalObjectLook >> initializeRequests [
 	super initializeRequests.
 
@@ -46,18 +48,18 @@ GtMapperGeographicalObjectLook >> initializeRequests [
 	self request: GtMapperWorldZoomRequest new
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 GtMapperGeographicalObjectLook >> onProjectedGeometryChanged: aProjectedGeometry widget: aWidget [
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtMapperGeographicalObjectLook >> scale: aNumber [
 	scale := aNumber.
 	self updateGeometry: geometry
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtMapperGeographicalObjectLook >> updateGeometry: aGtMapperGeometry [
 	geometry := aGtMapperGeometry.
 	self
@@ -76,7 +78,7 @@ GtMapperGeographicalObjectLook >> updateGeometry: aGtMapperGeometry [
 			self onProjectedGeometryChanged: aProjectedGeometry widget: aWidget ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtMapperGeographicalObjectLook >> zoom: aNumber [
 	zoom := aNumber.
 	self updateGeometry: geometry

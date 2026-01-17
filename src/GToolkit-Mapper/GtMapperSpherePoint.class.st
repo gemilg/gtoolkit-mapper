@@ -4,26 +4,28 @@ I represent a pount on a sphere defined by (longitude,  latitude)
 
 "
 Class {
-	#name : #GtMapperSpherePoint,
-	#superclass : #Object,
+	#name : 'GtMapperSpherePoint',
+	#superclass : 'Object',
 	#instVars : [
 		'longitude',
 		'latitude'
 	],
-	#category : #'GToolkit-Mapper-Geometries'
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperSpherePoint class >> longitude: aLongitude latitude: aLatitude [
 	^ self new longitude: aLongitude; latitude: aLatitude
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperSpherePoint >> asPoint [
 	^ self longitude @ self latitude
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperSpherePoint >> initialize [
 	super initialize.
 	
@@ -31,22 +33,22 @@ GtMapperSpherePoint >> initialize [
 	latitude := 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperSpherePoint >> latitude [
 	^ latitude
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperSpherePoint >> latitude: anObject [
 	latitude := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperSpherePoint >> longitude [
 	^ longitude
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperSpherePoint >> longitude: anObject [
 	longitude := anObject
 ]

@@ -1,10 +1,12 @@
 Class {
-	#name : #GtMapperMarker,
-	#superclass : #BlElement,
-	#category : #'GToolkit-Mapper-Widget - UI - Markers'
+	#name : 'GtMapperMarker',
+	#superclass : 'BlElement',
+	#category : 'GToolkit-Mapper-Widget - UI - Markers',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Markers'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperMarker >> initialize [
 	super initialize.
 	
@@ -19,7 +21,7 @@ GtMapperMarker >> initialize [
 			}))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperMarker >> location [
 	"Return marker location given in world cordinates [lon, lat]"
 	<return: #Point>
@@ -27,7 +29,7 @@ GtMapperMarker >> location [
 	^ self viewModel geometry asPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperMarker >> location: aPoint [
 	"Set marker location given in world cordinates [lon, lat]"
 	

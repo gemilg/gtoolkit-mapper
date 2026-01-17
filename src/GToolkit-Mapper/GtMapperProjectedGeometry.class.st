@@ -4,12 +4,14 @@ Projected geometry lives in screen coordinates
 
 "
 Class {
-	#name : #GtMapperProjectedGeometry,
-	#superclass : #GtMapperGeometry,
-	#category : #'GToolkit-Mapper-Geometries'
+	#name : 'GtMapperProjectedGeometry',
+	#superclass : 'GtMapperGeometry',
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedGeometry >> asElement [
 	^ BlElement new
 			size: self extent;
@@ -18,42 +20,42 @@ GtMapperProjectedGeometry >> asElement [
 			asScalableElement
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedGeometry >> bottomLeft [
 	<return: #Number>
 
 	^ self topLeft x @ self bottomRight y
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedGeometry >> bottomRight [
 	<return: #Point>
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedGeometry >> bounds [
 	<return: #Rectangle>
 
 	^ self topLeft corner: self bottomRight
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedGeometry >> center [
 	<return: #Point>
 
 	^ self bounds center
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedGeometry >> extent [
 	<return: #Point>
 
 	^ self bounds extent
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtMapperProjectedGeometry >> gtGeometryIn: aView [
 	<gtView>
 	
@@ -63,7 +65,7 @@ GtMapperProjectedGeometry >> gtGeometryIn: aView [
 		stencil: [ self asElement ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtMapperProjectedGeometry >> gtPropertiesIn: aView [
 	<gtView>
 	^ aView columnedList
@@ -80,21 +82,21 @@ GtMapperProjectedGeometry >> gtPropertiesIn: aView [
 		column: 'Value' text: [ :each | each value gtDisplayText ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedGeometry >> topLeft [
 	<return: #Point>
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedGeometry >> topRight [
 	<return: #Number>
 
 	^ self bottomRight x @ self topLeft y
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedGeometry >> translatedBy: aPoint [
 	^ self subclassResponsibility
 ]

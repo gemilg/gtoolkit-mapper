@@ -1,20 +1,22 @@
 Class {
-	#name : #GtMapperProjectedPolyline,
-	#superclass : #GtMapperProjectedGeometry,
+	#name : 'GtMapperProjectedPolyline',
+	#superclass : 'GtMapperProjectedGeometry',
 	#instVars : [
 		'projectedPoints'
 	],
-	#category : #'GToolkit-Mapper-Geometries'
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPolyline >> asBlocGeometry [
 	<return: #BlElementGeometry>
 
 	^ BlPolyline vertices: (self translatedBy: self topLeft negated) asPoints
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPolyline >> asElement [
 	^ BlElement new
 			size: self extent;
@@ -24,12 +26,12 @@ GtMapperProjectedPolyline >> asElement [
 			asScalableElement
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPolyline >> asPoints [
 	^ self projectedPoints collect: #asPoint
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedPolyline >> bottomRight [
 	<return: #Point>
 	| x y |
@@ -45,7 +47,7 @@ GtMapperProjectedPolyline >> bottomRight [
 	^ x @ y
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtMapperProjectedPolyline >> gtPointsIn: aView [
 	<gtView>
 	
@@ -55,24 +57,24 @@ GtMapperProjectedPolyline >> gtPointsIn: aView [
 		items: [ self projectedPoints ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperProjectedPolyline >> initialize [
 	super initialize.
 	
 	projectedPoints := #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPolyline >> projectedPoints [
 	^ projectedPoints
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPolyline >> projectedPoints: anObject [
 	projectedPoints := anObject
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedPolyline >> topLeft [
 	<return: #Point>
 	| x y |
@@ -88,7 +90,7 @@ GtMapperProjectedPolyline >> topLeft [
 	^ x @ y
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPolyline >> translatedBy: aPoint [
 	^ self class new 
 		projectedPoints: (self projectedPoints collect: [ :eachPoint | 

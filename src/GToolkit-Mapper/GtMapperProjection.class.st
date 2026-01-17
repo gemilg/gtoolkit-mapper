@@ -1,17 +1,19 @@
 Class {
-	#name : #GtMapperProjection,
-	#superclass : #Object,
-	#category : #'GToolkit-Mapper-Projections'
+	#name : 'GtMapperProjection',
+	#superclass : 'Object',
+	#category : 'GToolkit-Mapper-Projections',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Projections'
 }
 
-{ #category : #'api - projection' }
+{ #category : 'api - projection' }
 GtMapperProjection >> projectLongitude: aLongitude latitude: aLatitude [
 	<return: #Point>
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #'api - projection' }
+{ #category : 'api - projection' }
 GtMapperProjection >> projectX: aX y: aY [
 	<return: #GtMapperSpherePoint>
 	

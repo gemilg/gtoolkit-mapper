@@ -1,10 +1,12 @@
 Class {
-	#name : #GtMapperWorldExamples,
-	#superclass : #Object,
-	#category : #'GToolkit-Mapper-Examples'
+	#name : 'GtMapperWorldExamples',
+	#superclass : 'Object',
+	#category : 'GToolkit-Mapper-Examples',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtMapperWorldExamples >> worldWithAllCountries [
 
 	<gtExample>

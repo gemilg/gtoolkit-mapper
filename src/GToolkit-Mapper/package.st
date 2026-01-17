@@ -1,1 +1,1 @@
-Package { #name : #'GToolkit-Mapper' }
+Package { #name : 'GToolkit-Mapper' }

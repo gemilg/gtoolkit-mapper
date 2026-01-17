@@ -1,38 +1,40 @@
 Class {
-	#name : #GtMapperProjectedPoint,
-	#superclass : #GtMapperProjectedGeometry,
+	#name : 'GtMapperProjectedPoint',
+	#superclass : 'GtMapperProjectedGeometry',
 	#instVars : [
 		'x',
 		'y'
 	],
-	#category : #'GToolkit-Mapper-Geometries'
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtMapperProjectedPoint class >> fromPoint: aPoint [
 	^ self new x: aPoint x y: aPoint y
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPoint >> asBlocGeometry [
 	<return: #BlElementGeometry>
 
 	^ BlCircle new
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPoint >> asPoint [
 	^ x @ y
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedPoint >> bottomRight [
 	<return: #Point>
 	
 	^ (x + 0.5) @ (y + 0.5)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperProjectedPoint >> initialize [
 	super initialize.
 	
@@ -40,7 +42,7 @@ GtMapperProjectedPoint >> initialize [
 	y := 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPoint >> printOn: aStream [ 
 	super printOn: aStream.
 	
@@ -51,24 +53,24 @@ GtMapperProjectedPoint >> printOn: aStream [
 			print: self y ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtMapperProjectedPoint >> topLeft [
 	<return: #Point>
 
 	^ (x - 0.5) @ (y - 0.5)
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtMapperProjectedPoint >> translatedBy: aPoint [
 	^ self class new x: x + aPoint x y: y + aPoint y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPoint >> x [
 	^ x
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPoint >> x: aNumber [
 	self
 		assert: [ aNumber isNumber ]
@@ -77,18 +79,18 @@ GtMapperProjectedPoint >> x: aNumber [
 	x := aNumber
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperProjectedPoint >> x: aX y: aY [
 	x := aX.
 	y := aY
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPoint >> y [
 	^ y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperProjectedPoint >> y: aNumber [
 
 	self

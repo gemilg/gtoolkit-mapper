@@ -1,13 +1,15 @@
 Class {
-	#name : #GtOsmPath,
-	#superclass : #Object,
+	#name : 'GtOsmPath',
+	#superclass : 'Object',
 	#instVars : [
 		'coordinates'
 	],
-	#category : #'GToolkit-Mapper-Osm'
+	#category : 'GToolkit-Mapper-Osm',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Osm'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmPath >> addToMap: aGtOsmMap [
 	"Add the receiver to the supplied map"
 	| mapPoints path |
@@ -23,7 +25,7 @@ GtOsmPath >> addToMap: aGtOsmMap [
 	aGtOsmMap addChild: path.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmPath >> coordinateToMap: aPoint map: aGtOsmMap [
 	| osmTiles tileNumber tileOffset mx my |
 
@@ -39,14 +41,14 @@ GtOsmPath >> coordinateToMap: aPoint map: aGtOsmMap [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmPath >> coordinates [
 	<return: #Array of: #Point>
 
 	^ coordinates
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtOsmPath >> coordinates: anObject [
 	coordinates := anObject
 ]

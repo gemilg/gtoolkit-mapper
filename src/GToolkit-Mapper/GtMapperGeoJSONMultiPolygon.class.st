@@ -4,21 +4,23 @@ I am GeoJSON's MultiPolygon geometry
 
 "
 Class {
-	#name : #GtMapperGeoJSONMultiPolygon,
-	#superclass : #GtMapperGeoJSONGeometry,
+	#name : 'GtMapperGeoJSONMultiPolygon',
+	#superclass : 'GtMapperGeoJSONGeometry',
 	#instVars : [
 		'polygons'
 	],
-	#category : #'GToolkit-Mapper-Geometries'
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtMapperGeoJSONMultiPolygon class >> from: aCollectionOfCollectionOfPoints [
 	^ self new polygons: (aCollectionOfCollectionOfPoints
 		collect: [ :eachRawPolygon | GtMapperGeoJSONPolygon from: eachRawPolygon ])
 ]
 
-{ #category : #'api- geometry' }
+{ #category : 'api- geometry' }
 GtMapperGeoJSONMultiPolygon >> center [
 	<return: #GtMapperSpherePoint>
 
@@ -28,38 +30,38 @@ GtMapperGeoJSONMultiPolygon >> center [
 	^ self largestPolygon center
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperGeoJSONMultiPolygon >> initialize [
 	super initialize.
 
 	polygons := #()
 ]
 
-{ #category : #'api- geometry' }
+{ #category : 'api- geometry' }
 GtMapperGeoJSONMultiPolygon >> largestPolygon [
 	<return: #GtMapperGeoJSONPolygon>
 
 	^ self polygons detectMax: [ :eachPolygon | eachPolygon area ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperGeoJSONMultiPolygon >> polygons [
 	<return: #Collection of: #GtMapperGeoJSONPolygon>
 
 	^ polygons
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperGeoJSONMultiPolygon >> polygons: aCollectionOfPolygons [
 	polygons := aCollectionOfPolygons
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtMapperGeoJSONMultiPolygon >> polygonsDo: aBlock [
 	self polygons do: aBlock
 ]
 
-{ #category : #'api - projection' }
+{ #category : 'api - projection' }
 GtMapperGeoJSONMultiPolygon >> projected: aProjection [
 	"Return a projected version of GeoJSON geometry by applying a given projection"
 	

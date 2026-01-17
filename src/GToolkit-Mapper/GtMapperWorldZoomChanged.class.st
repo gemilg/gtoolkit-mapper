@@ -1,18 +1,20 @@
 Class {
-	#name : #GtMapperWorldZoomChanged,
-	#superclass : #BrChangeEvent,
+	#name : 'GtMapperWorldZoomChanged',
+	#superclass : 'BrChangeEvent',
 	#instVars : [
 		'zoom'
 	],
-	#category : #'GToolkit-Mapper-Widget - Events'
+	#category : 'GToolkit-Mapper-Widget - Events',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldZoomChanged >> zoom [
 	^ zoom
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldZoomChanged >> zoom: anObject [
 	zoom := anObject
 ]

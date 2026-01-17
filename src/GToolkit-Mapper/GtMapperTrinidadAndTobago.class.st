@@ -1,23 +1,25 @@
 Class {
-	#name : #GtMapperTrinidadAndTobago,
-	#superclass : #GtMapperCountry,
-	#category : #'GToolkit-Mapper-Widget - UI - Countries'
+	#name : 'GtMapperTrinidadAndTobago',
+	#superclass : 'GtMapperCountry',
+	#category : 'GToolkit-Mapper-Widget - UI - Countries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Countries'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperTrinidadAndTobago >> defaultCountryGeometry [
 	<script: 'self basicNew defaultCountryGeometry inspect'>
 	"I am automatically generated from GeoJSON"
 	^ GtMapperGeoJSONPolygon from: #(#(#(-61.68 10.76) #(-61.105 10.89) #(-60.895 10.855) #(-60.935 10.11) #(-61.77 10) #(-61.95 10.09) #(-61.66 10.365) #(-61.68 10.76)))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperTrinidadAndTobago >> defaultCountryName [
 	"I am automatically generated from GeoJSON"
 	^ 'Trinidad and Tobago'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperTrinidadAndTobago >> defaultCountryProperties [
 	<script: 'self basicNew defaultCountryProperties inspect'>
 	"I am automatically generated from GeoJSON"

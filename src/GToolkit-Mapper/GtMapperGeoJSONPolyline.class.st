@@ -1,19 +1,21 @@
 Class {
-	#name : #GtMapperGeoJSONPolyline,
-	#superclass : #GtMapperGeoJSONGeometry,
+	#name : 'GtMapperGeoJSONPolyline',
+	#superclass : 'GtMapperGeoJSONGeometry',
 	#instVars : [
 		'points'
 	],
-	#category : #'GToolkit-Mapper-Geometries'
+	#category : 'GToolkit-Mapper-Geometries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Geometries'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtMapperGeoJSONPolyline class >> from: aCollectionOfPoints [
 	^ self new points: (aCollectionOfPoints first
 		collect: [ :eachRawPoint | GtMapperGeoJSONPoint from: eachRawPoint ])
 ]
 
-{ #category : #'api - geometry' }
+{ #category : 'api - geometry' }
 GtMapperGeoJSONPolyline >> area [
 	| aCircularArrayOfPoints xSum ySum |
 	<return: #Number>
@@ -31,7 +33,7 @@ GtMapperGeoJSONPolyline >> area [
 	^ ((xSum - ySum) / 2.0) abs
 ]
 
-{ #category : #'api - geometry' }
+{ #category : 'api - geometry' }
 GtMapperGeoJSONPolyline >> center [
 	<return: #GtMapperSpherePoint>
 	| aLatitude aLongitude anAmount |
@@ -53,7 +55,7 @@ GtMapperGeoJSONPolyline >> center [
 	^ GtMapperSpherePoint longitude: aLongitude latitude: aLatitude
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtMapperGeoJSONPolyline >> gtPointsIn: aView [
 	<gtView>
 	
@@ -63,31 +65,31 @@ GtMapperGeoJSONPolyline >> gtPointsIn: aView [
 		items: [ self points ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperGeoJSONPolyline >> initialize [
 	super initialize.
 	
 	points := #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperGeoJSONPolyline >> points [
 	<return: #Collection of: #GtMapperGeoJSONPoint>
 
 	^ points
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperGeoJSONPolyline >> points: aCollectionOfPoints [
 	points := aCollectionOfPoints
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtMapperGeoJSONPolyline >> polygonsDo: aBlock [
 	aBlock value: self
 ]
 
-{ #category : #'api - projection' }
+{ #category : 'api - projection' }
 GtMapperGeoJSONPolyline >> projected: aProjection [
 	"Return a projected version of GeoJSON geometry by applying a given projection"
 	

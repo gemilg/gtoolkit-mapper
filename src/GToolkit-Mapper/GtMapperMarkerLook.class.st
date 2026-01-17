@@ -1,6 +1,6 @@
 Class {
-	#name : #GtMapperMarkerLook,
-	#superclass : #GtMapperGeographicalObjectLook,
+	#name : 'GtMapperMarkerLook',
+	#superclass : 'GtMapperGeographicalObjectLook',
 	#traits : 'TBlAlignable',
 	#classTraits : 'TBlAlignable classTrait',
 	#instVars : [
@@ -8,10 +8,12 @@ Class {
 		'horizontalAlignment',
 		'verticalAlignment'
 	],
-	#category : #'GToolkit-Mapper-Widget - Look'
+	#category : 'GToolkit-Mapper-Widget - Look',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Look'
 }
 
-{ #category : #'private - alignment' }
+{ #category : 'private - alignment' }
 GtMapperMarkerLook >> alignWidget: aWidget with: aProjectedGeometry [
 	| anAlignment aTranslation anExtent |
 		
@@ -25,19 +27,19 @@ GtMapperMarkerLook >> alignWidget: aWidget with: aProjectedGeometry [
 	aWidget relocate: aTranslation + aProjectedGeometry center
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperMarkerLook >> horizontalAlignment [
 	<return: #BlElementAlignment>
 
 	^ horizontalAlignment
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperMarkerLook >> horizontalAlignment: aBlElementAlignment [
 	horizontalAlignment := aBlElementAlignment
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperMarkerLook >> initialize [
 	super initialize.
 	
@@ -45,7 +47,7 @@ GtMapperMarkerLook >> initialize [
 	verticalAlignment := BlElementAlignment vertical center
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 GtMapperMarkerLook >> onProjectedGeometryChanged: aProjectedGeometry widget: aWidget [
 	self alignWidget: aWidget with: aProjectedGeometry.
 	
@@ -55,14 +57,14 @@ GtMapperMarkerLook >> onProjectedGeometryChanged: aProjectedGeometry widget: aWi
 	aWidget addEventHandler: extentEventHandler
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperMarkerLook >> verticalAlignment [
 	<return: #BlElementAlignment>
 
 	^ verticalAlignment
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperMarkerLook >> verticalAlignment: aBlElementAlignment [
 	verticalAlignment := aBlElementAlignment
 ]

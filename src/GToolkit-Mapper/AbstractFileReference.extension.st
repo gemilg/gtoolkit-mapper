@@ -1,6 +1,6 @@
-Extension { #name : #AbstractFileReference }
+Extension { #name : 'AbstractFileReference' }
 
-{ #category : #'*GToolkit-Mapper' }
+{ #category : '*GToolkit-Mapper' }
 AbstractFileReference >> gtOsmGpxFor: aView [
 	<gtView>
 

@@ -1,23 +1,25 @@
 Class {
-	#name : #GtMapperPuertoRico,
-	#superclass : #GtMapperCountry,
-	#category : #'GToolkit-Mapper-Widget - UI - Countries'
+	#name : 'GtMapperPuertoRico',
+	#superclass : 'GtMapperCountry',
+	#category : 'GToolkit-Mapper-Widget - UI - Countries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Countries'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperPuertoRico >> defaultCountryGeometry [
 	<script: 'self basicNew defaultCountryGeometry inspect'>
 	"I am automatically generated from GeoJSON"
 	^ GtMapperGeoJSONPolygon from: #(#(#(-66.28243445500821 18.514761664295364) #(-65.7713028632093 18.426679185453878) #(-65.59100379094295 18.228034979723915) #(-65.84716386581377 17.97590566657186) #(-66.59993445500949 17.981822618069273) #(-67.18416236028527 17.946553453030077) #(-67.24242753769435 18.374460150622937) #(-67.10067908391774 18.52060110114435) #(-66.28243445500821 18.514761664295364)))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperPuertoRico >> defaultCountryName [
 	"I am automatically generated from GeoJSON"
 	^ 'Puerto Rico'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperPuertoRico >> defaultCountryProperties [
 	<script: 'self basicNew defaultCountryProperties inspect'>
 	"I am automatically generated from GeoJSON"

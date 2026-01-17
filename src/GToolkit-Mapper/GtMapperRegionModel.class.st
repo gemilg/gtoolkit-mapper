@@ -1,13 +1,15 @@
 Class {
-	#name : #GtMapperRegionModel,
-	#superclass : #GtMapperGeographicalObjectModel,
+	#name : 'GtMapperRegionModel',
+	#superclass : 'GtMapperGeographicalObjectModel',
 	#instVars : [
 		'geographicalObjects'
 	],
-	#category : #'GToolkit-Mapper-Widget - Model'
+	#category : 'GToolkit-Mapper-Widget - Model',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Model'
 }
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtMapperRegionModel >> addGeographicalObject: aGeographicalObjectModel [
 	| aNewGeometry thePolygons |
 	
@@ -23,7 +25,7 @@ GtMapperRegionModel >> addGeographicalObject: aGeographicalObjectModel [
 	geographicalObjects add: aGeographicalObjectModel
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtMapperRegionModel >> addGeographicalObjects: aCollectionOfGeographicalObjectModels [
 	| aNewGeometry thePolygons |
 	
@@ -41,14 +43,14 @@ GtMapperRegionModel >> addGeographicalObjects: aCollectionOfGeographicalObjectMo
 	geographicalObjects addAll: aCollectionOfGeographicalObjectModels
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperRegionModel >> geographicalObjects [
 	<return: #Collection of: #GtMapperCountryModel>
 
 	^ geographicalObjects
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperRegionModel >> initialize [
 	super initialize.
 	

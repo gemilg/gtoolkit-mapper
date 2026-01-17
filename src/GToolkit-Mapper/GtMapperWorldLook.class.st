@@ -1,14 +1,16 @@
 Class {
-	#name : #GtMapperWorldLook,
-	#superclass : #BrInteractiveCommonAptitude,
+	#name : 'GtMapperWorldLook',
+	#superclass : 'BrInteractiveCommonAptitude',
 	#instVars : [
 		'geographicalObjects',
 		'extentChangeHandler'
 	],
-	#category : #'GToolkit-Mapper-Widget - Look'
+	#category : 'GToolkit-Mapper-Widget - Look',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Look'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtMapperWorldLook >> addObject: anObjectModel [
 	geographicalObjects
 		at: anObjectModel
@@ -19,7 +21,7 @@ GtMapperWorldLook >> addObject: anObjectModel [
 		self widgetDo: [ :aWorldWidget | aWorldWidget addChild: anObjectWidget ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperWorldLook >> initialize [
 	| shouldScaleWidth shouldScaleHeight |
 	super initialize.
@@ -66,7 +68,7 @@ GtMapperWorldLook >> initialize [
 		vFitContentToFitContent: [ shouldScaleHeight := false ])
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperWorldLook >> initializeListeners [
 	super initializeListeners.
 
@@ -75,7 +77,7 @@ GtMapperWorldLook >> initializeListeners [
 	self when: GtMapperWorldObjectRemoved do: [ :anEvent | self removeObject: anEvent geographicalObject ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperWorldLook >> initializeRequests [
 	super initializeRequests.
 
@@ -84,14 +86,14 @@ GtMapperWorldLook >> initializeRequests [
 	self request: GtMapperWorldScaleRequest new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtMapperWorldLook >> removeObject: anObjectModel [
 	geographicalObjects
 		at: anObjectModel
 		ifPresent: [ :anObjectWidget | anObjectWidget removeFromParent ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtMapperWorldLook >> updateObjects: aCollectionOfObjectModels [
 	geographicalObjects valuesDo: [ :eachWidget | eachWidget removeFromParent ].
 

@@ -1,18 +1,20 @@
 Class {
-	#name : #GtMapperWorldObjectsChanged,
-	#superclass : #BrChangeEvent,
+	#name : 'GtMapperWorldObjectsChanged',
+	#superclass : 'BrChangeEvent',
 	#instVars : [
 		'geographicalObjects'
 	],
-	#category : #'GToolkit-Mapper-Widget - Events'
+	#category : 'GToolkit-Mapper-Widget - Events',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldObjectsChanged >> geographicalObjects [
 	^ geographicalObjects
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldObjectsChanged >> geographicalObjects: anObject [
 	geographicalObjects := anObject
 ]

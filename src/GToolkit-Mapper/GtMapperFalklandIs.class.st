@@ -1,23 +1,25 @@
 Class {
-	#name : #GtMapperFalklandIs,
-	#superclass : #GtMapperCountry,
-	#category : #'GToolkit-Mapper-Widget - UI - Countries'
+	#name : 'GtMapperFalklandIs',
+	#superclass : 'GtMapperCountry',
+	#category : 'GToolkit-Mapper-Widget - UI - Countries',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - UI - Countries'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperFalklandIs >> defaultCountryGeometry [
 	<script: 'self basicNew defaultCountryGeometry inspect'>
 	"I am automatically generated from GeoJSON"
 	^ GtMapperGeoJSONPolygon from: #(#(#(-61.2 -51.85) #(-60 -51.25) #(-59.15 -51.5) #(-58.55 -51.1) #(-57.75 -51.55) #(-58.05 -51.9) #(-59.4 -52.2) #(-59.85 -51.85) #(-60.7 -52.3) #(-61.2 -51.85)))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperFalklandIs >> defaultCountryName [
 	"I am automatically generated from GeoJSON"
 	^ 'Falkland Is.'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperFalklandIs >> defaultCountryProperties [
 	<script: 'self basicNew defaultCountryProperties inspect'>
 	"I am automatically generated from GeoJSON"

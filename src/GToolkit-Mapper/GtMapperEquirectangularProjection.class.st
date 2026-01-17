@@ -1,25 +1,27 @@
 Class {
-	#name : #GtMapperEquirectangularProjection,
-	#superclass : #GtMapperProjection,
+	#name : 'GtMapperEquirectangularProjection',
+	#superclass : 'GtMapperProjection',
 	#instVars : [
 		'scale',
 		'center',
 		'tanslation'
 	],
-	#category : #'GToolkit-Mapper-Projections'
+	#category : 'GToolkit-Mapper-Projections',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Projections'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperEquirectangularProjection >> center [
 	^ center
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperEquirectangularProjection >> center: aGtMapperSpherePoint [
 	center := aGtMapperSpherePoint
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperEquirectangularProjection >> initialize [
 	super initialize.
 	
@@ -27,7 +29,7 @@ GtMapperEquirectangularProjection >> initialize [
 	scale := 1.0
 ]
 
-{ #category : #'api - projection' }
+{ #category : 'api - projection' }
 GtMapperEquirectangularProjection >> projectLongitude: aLongitude latitude: aLatitude [
 	<return: #Point>
 	| x y |
@@ -38,12 +40,12 @@ GtMapperEquirectangularProjection >> projectLongitude: aLongitude latitude: aLat
 	^ (x @ y) * scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperEquirectangularProjection >> scale [
 	^ scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperEquirectangularProjection >> scale: aNumber [
 	scale := aNumber
 ]

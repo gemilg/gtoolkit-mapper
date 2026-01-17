@@ -1,21 +1,23 @@
 Class {
-	#name : #GtMapperWorldModel,
-	#superclass : #BrWidgetModel,
+	#name : 'GtMapperWorldModel',
+	#superclass : 'BrWidgetModel',
 	#instVars : [
 		'geographicalObjects',
 		'scale',
 		'zoom',
 		'center'
 	],
-	#category : #'GToolkit-Mapper-Widget - Model'
+	#category : 'GToolkit-Mapper-Widget - Model',
+	#package : 'GToolkit-Mapper',
+	#tag : 'Widget - Model'
 }
 
-{ #category : #'api - adding' }
+{ #category : 'api - adding' }
 GtMapperWorldModel >> addAllGeographicalObjects: aCollectionOfGeographicalObjects [
 	aCollectionOfGeographicalObjects do: [ :eachObjectModel | self addGeographicalObject: eachObjectModel ]
 ]
 
-{ #category : #'api - adding' }
+{ #category : 'api - adding' }
 GtMapperWorldModel >> addGeographicalObject: anObjectModel [
 	
 	geographicalObjects add: anObjectModel.
@@ -26,32 +28,32 @@ GtMapperWorldModel >> addGeographicalObject: anObjectModel [
 	self notifyObjectAdded: anObjectModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldModel >> center [
 	<return: #GtMapperSpherePoint>
 
 	^ center
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldModel >> center: aGtMapperSpherePoint [
 	center := aGtMapperSpherePoint.
 	self notifyCenterChanged: aGtMapperSpherePoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldModel >> geographicalObjects: aCollectionOfObjectModels [
 	geographicalObjects := aCollectionOfObjectModels asOrderedCollection.
 	self notifyObjectsChanged: geographicalObjects
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtMapperWorldModel >> includesGeographicalObject: anObjectModel [
 	
 	^ geographicalObjects includes: anObjectModel
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperWorldModel >> initialize [
 	super initialize.
 	
@@ -62,7 +64,7 @@ GtMapperWorldModel >> initialize [
 	center := GtMapperSpherePoint new.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtMapperWorldModel >> initializeListeners [
 	super initializeListeners.
 
@@ -71,40 +73,40 @@ GtMapperWorldModel >> initializeListeners [
 	self when: GtMapperWorldCenterRequest reply: [ :aResponse | aResponse center: self center ]
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtMapperWorldModel >> notifyCenterChanged: aNumber [
 	self dispatchEvent: (GtMapperWorldCenterChanged new center: aNumber).
 	geographicalObjects do: [ :eachObject | eachObject dispatchEvent: (GtMapperWorldCenterChanged new center: aNumber) ]
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtMapperWorldModel >> notifyObjectAdded: anObjectModels [
 	self dispatchEvent: (GtMapperWorldObjectAdded new geographicalObject: anObjectModels)
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtMapperWorldModel >> notifyObjectRemoved: anObjectModels [
 	self dispatchEvent: (GtMapperWorldObjectRemoved new geographicalObject: anObjectModels)
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtMapperWorldModel >> notifyObjectsChanged: aCollectionOfObjectModels [
 	self dispatchEvent: (GtMapperWorldObjectsChanged new geographicalObjects: aCollectionOfObjectModels)
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtMapperWorldModel >> notifyScaleChanged: aNumber [
 	self dispatchEvent: (GtMapperWorldScaleChanged new scale: aNumber).
 	geographicalObjects do: [ :eachObject | eachObject dispatchEvent: (GtMapperWorldScaleChanged new scale: aNumber) ]
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtMapperWorldModel >> notifyZoomChanged: aNumber [
 	self dispatchEvent: (GtMapperWorldZoomChanged new zoom: aNumber).
 	geographicalObjects do: [ :eachObject | eachObject dispatchEvent: (GtMapperWorldZoomChanged new zoom: aNumber) ]
 ]
 
-{ #category : #'api - adding' }
+{ #category : 'api - adding' }
 GtMapperWorldModel >> removeGeographicalObject: anObjectModel [
 	
 	geographicalObjects remove: anObjectModel ifAbsent: [ ^ self ].
@@ -116,27 +118,27 @@ GtMapperWorldModel >> removeGeographicalObject: anObjectModel [
 	self notifyObjectRemoved: anObjectModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldModel >> scale [
 	<return: #Number>
 
 	^ scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldModel >> scale: aNumber [
 	scale := aNumber.
 	self notifyScaleChanged: aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldModel >> zoom [
 	<return: #Number>
 
 	^ zoom
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtMapperWorldModel >> zoom: aNumber [
 	zoom := aNumber.
 	self notifyZoomChanged: aNumber
