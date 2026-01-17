@@ -81,11 +81,16 @@ GtOsmCanvassableMap >> buildTilesContainer [
 					| point file image |
 					point := (centerNumber x + x - self additionalNumberOfTilesAroundCenter - 1)
 							@ (centerNumber y + y - self additionalNumberOfTilesAroundCenter - 1).
-					file := osm filenameForTileNumber: point zoom: zoom.
-					image := (SkiaImage fromFile: file) asElement
-							constraintsDo: [ :c | 
-								c horizontal matchParent.
-								c vertical matchParent ].
+					file := osm asyncFilenameForTileNumber: point zoom: zoom.
+					(file exists and: ((osm isFileBeingDownloaded: file) not) )
+						ifTrue: [ image := (SkiaImage fromFile: file) asElement
+									constraintsDo: [ :c | 
+										c horizontal matchParent.
+										c vertical matchParent ] ]
+						ifFalse: [ image := osm emptyTileSkiaImage asElement
+									constraintsDo: [ :c | 
+										c horizontal matchParent.
+										c vertical matchParent ] ].
 					rowContainer addChild: image ].
 			tiles addChild: rowContainer ].
 
