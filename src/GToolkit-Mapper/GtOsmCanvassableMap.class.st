@@ -81,8 +81,15 @@ GtOsmCanvassableMap >> buildTilesContainer [
 					| point file image |
 					point := (centerNumber x + x - self additionalNumberOfTilesAroundCenter - 1)
 							@ (centerNumber y + y - self additionalNumberOfTilesAroundCenter - 1).
-					file := osm asyncFilenameForTileNumber: point zoom: zoom.
-					(file exists and: ((osm isFileBeingDownloaded: file) not) )
+					file := osm
+							asyncFilenameForTileNumber: point
+							zoom: zoom
+							callback: [ :p :z | 
+								Transcript
+									show: 'callback ' , p asString , ' 14';
+									cr.
+								self notifyTileReady: p zoom:z ].
+					(file exists and: (osm isFileBeingDownloaded: file) not)
 						ifTrue: [ image := (SkiaImage fromFile: file) asElement
 									constraintsDo: [ :c | 
 										c horizontal matchParent.
@@ -218,6 +225,12 @@ GtOsmCanvassableMap >> initialize [
 		do: [ :evt | 
 			centerCoordinate := self pxOnCanvasToCoordinate: self viewCenteredAtPx.
 			self focusViewOnCoordinate: centerCoordinate ]
+]
+
+{ #category : 'draw-canvas' }
+GtOsmCanvassableMap >> notifyTileReady: p zoom: z [
+	"Implemente proper tile handling here"
+	Transcript show: 'Tile ready [', z asString,', ', p asString, ']'; cr.
 ]
 
 { #category : 'draw-canvas' }

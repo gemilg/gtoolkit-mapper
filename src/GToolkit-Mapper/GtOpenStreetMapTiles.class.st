@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-GtOpenStreetMapTiles >> asyncFilenameForTileNumber: point zoom: zoom [
+GtOpenStreetMapTiles >> asyncFilenameForTileNumber: point zoom: zoom callback: aBlock [
 	<return: #AbstractFileReference>
 	| tileFilename |
 	tileFilename := self cacheDir
@@ -28,6 +28,7 @@ GtOpenStreetMapTiles >> asyncFilenameForTileNumber: point zoom: zoom [
 			getTilePromise
 				asyncThen: [  
 					tilesCurrentlyDownloading remove: tileFilename.
+					aBlock value: point value: zoom.
 					"Transcript show: 'Downloaded: ' , tileFilename asString; cr." ] ].
 	^ tileFilename
 ]
