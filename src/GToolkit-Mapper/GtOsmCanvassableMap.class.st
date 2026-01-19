@@ -230,6 +230,7 @@ GtOsmCanvassableMap >> initialize [
 { #category : 'draw-canvas' }
 GtOsmCanvassableMap >> notifyTileReady: p zoom: z [
 	"Implemente proper tile handling here"
+	"Update specifc tile in tileContainer"
 	Transcript show: 'Tile ready [', z asString,', ', p asString, ']'; cr.
 ]
 
