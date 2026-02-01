@@ -18,77 +18,6 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-03T18:23:47.59023+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-03T18:23:52.542039+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "fewQJ9r3DQCbmGMxCYwlmg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "Load gtoolkit-mapper:"
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-08-03T18:23:57.824084+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-12-28T12:20:20.923663+01:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "tBCtJ9r3DQCbn55oCYwlmg=="
-				},
-				"code" : "Metacello new\r\tbaseline: 'GToolkitMapperWithoutGT';\r\trepository: 'github://gemilg/gtoolkit-mapper/src';\r\tload"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
 						"dateAndTimeString" : "2026-01-04T13:07:47.10753+01:00"
 					}
 				},
@@ -384,7 +313,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-10T23:07:22.047334+01:00"
+						"dateAndTimeString" : "2026-02-01T19:42:33.048265+01:00"
 					}
 				},
 				"uid" : {
@@ -394,7 +323,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Zoom in."
+				"string" : "Zoom in(You can use button in the inspector)."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -455,7 +384,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-01-10T23:12:38.505517+01:00"
+						"dateAndTimeString" : "2026-02-01T19:42:40.330607+01:00"
 					}
 				},
 				"uid" : {
@@ -465,7 +394,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Zoom out."
+				"string" : "Zoom out(You can use button in the inspector)."
 			},
 			{
 				"__type" : "pharoSnippet",
