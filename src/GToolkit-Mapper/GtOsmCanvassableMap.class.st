@@ -9,8 +9,7 @@ Class {
 		'tilesContainer',
 		'widgets',
 		'widgetsLayer',
-		'osm',
-		'mutex'
+		'osm'
 	],
 	#category : 'GToolkit-Mapper-Osm',
 	#package : 'GToolkit-Mapper',
@@ -238,9 +237,16 @@ GtOsmCanvassableMap >> isTileNumberOnCanvas: p [
 
 { #category : 'draw-canvas' }
 GtOsmCanvassableMap >> notifyTileReady: p zoom: z [
-	"Implemente proper tile handling here"
-	"Update specifc tile in tileContainer"
-	Transcript show: 'Tile ready [', z asString,', ', p asString, ']'; cr.
+	| posOnCanvas |
+	Transcript
+		show: 'Tile ready [' , z asString , ', ' , p asString , ']';
+		cr.
+
+	posOnCanvas := self tileNumberToPosOnCanvas: p.
+	(posOnCanvas isNotNil and: self zoom = z)
+		ifTrue: [ | file |
+			file := osm filenameForTileNumber: p zoom: z.
+			self replaceTileAt: posOnCanvas with: (SkiaImage fromFile: file) asElement ]
 ]
 
 { #category : 'draw-canvas' }
