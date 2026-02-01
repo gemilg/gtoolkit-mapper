@@ -9,7 +9,8 @@ Class {
 		'tilesContainer',
 		'widgets',
 		'widgetsLayer',
-		'osm'
+		'osm',
+		'mutex'
 	],
 	#category : 'GToolkit-Mapper-Osm',
 	#package : 'GToolkit-Mapper',
@@ -227,6 +228,14 @@ GtOsmCanvassableMap >> initialize [
 			self focusViewOnCoordinate: centerCoordinate ]
 ]
 
+{ #category : 'as yet unclassified' }
+GtOsmCanvassableMap >> isTileNumberOnCanvas: p [
+	^ ((p x >= (self centerTileNumber x - self additionalNumberOfTilesAroundCenter)
+		and: p x <= (self centerTileNumber x + self additionalNumberOfTilesAroundCenter))
+		and: (p y >= (self centerTileNumber y - self additionalNumberOfTilesAroundCenter)
+				and: p y <= (self centerTileNumber y + self additionalNumberOfTilesAroundCenter)))
+]
+
 { #category : 'draw-canvas' }
 GtOsmCanvassableMap >> notifyTileReady: p zoom: z [
 	"Implemente proper tile handling here"
@@ -278,6 +287,11 @@ GtOsmCanvassableMap >> replaceTileAt: aPoint with: aBlElement [
 	| elementToReplace |
 	elementToReplace := (self tilesContainer childAt: aPoint y) childAt: aPoint x.
 	(self tilesContainer childAt: aPoint y) replaceChild: elementToReplace with: aBlElement
+]
+
+{ #category : 'as yet unclassified' }
+GtOsmCanvassableMap >> tileNumberToPosOnCanvas: aPoint [
+	(self isTileNumberOnCanvas: aPoint) ifTrue: [ ^ aPoint - self centerTileNumber + self additionalNumberOfTilesAroundCenter + 1] ifFalse: [ ^ nil ]
 ]
 
 { #category : 'accessing' }
