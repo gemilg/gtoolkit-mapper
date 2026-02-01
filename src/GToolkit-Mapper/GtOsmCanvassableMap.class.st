@@ -273,6 +273,13 @@ GtOsmCanvassableMap >> removeWidget: aWidget [
 	widgets remove: aWidget
 ]
 
+{ #category : 'as yet unclassified' }
+GtOsmCanvassableMap >> replaceTileAt: aPoint with: aBlelement [
+	| elementToReplace |
+	elementToReplace := (self tilesContainer childAt: aPoint y) childAt: aPoint x.
+	(self tilesContainer childAt: aPoint y) replaceChild: elementToReplace with: (GtOpenStreetMapTiles new emptyTileSkiaImage asElement)
+]
+
 { #category : 'accessing' }
 GtOsmCanvassableMap >> tilesContainer [
 	^ tilesContainer
